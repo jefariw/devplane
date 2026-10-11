@@ -1,0 +1,49 @@
+schema: spec-driven
+
+# Project context: injected into the instructions for every artifact.
+# Keep it to constraints an agent can't infer by reading the code.
+# General project documentation belongs in README.md.
+context: |
+  DevPlane is a personal portfolio project built by one entry-level engineer: a small
+  internal developer platform (README.md has the roadmap). Scope every change like a
+  well-built personal project, not enterprise software: the simplest design that works
+  end to end, with real tests. No multi-tenancy, RBAC, SSO, high availability, or
+  multi-region support unless a change explicitly asks for it. Until a change adds
+  authentication, DevPlane runs locally for a single user.
+
+  Stack: Java 21, Spring Boot 4, Gradle (Kotlin DSL) through the wrapper, PostgreSQL
+  with Flyway migrations. Tests use JUnit and AssertJ; integration tests run against
+  a real PostgreSQL through Testcontainers, never an in-memory database.
+
+  Everything must run on a laptop at $0: a Docker runtime for local infrastructure,
+  kind for Kubernetes, and GitHub's free tier for repositories and CI. Paid cloud
+  services and Terraform are stretch goals only.
+
+  Roadmap phases are built in order. Do not add later-phase behavior to an earlier
+  change; record it as future work instead.
+
+# Per-artifact rules: added on top of the spec-driven schema's own instructions.
+rules:
+  proposal:
+    - Name the README roadmap item or items this change advances.
+    - End "What Changes" with an explicit "Out of scope" list.
+  specs:
+    - For HTTP endpoints, the method, path, status codes, and request and response fields are the observable contract. Specify them.
+    - Start a scenario with a **GIVEN** bullet when it depends on existing state, and use **AND** bullets for additional conditions or outcomes.
+    - Every requirement that can fail (invalid input, not found, conflict) needs at least one failure scenario.
+  design:
+    - Justify every new dependency or piece of infrastructure, and prefer the simplest option that satisfies the specs.
+    - Name any later roadmap item this design must not block, without designing for it now.
+  tasks:
+    - Keep each task to roughly two hours of work or less.
+    - When the change completes a README roadmap item, include a task to tick its checkbox.
+
+# Per-operation guidance for the apply and archive workflows.
+operations:
+  apply:
+    guidance:
+      - Run a task's verification before checking it off, and keep ./gradlew build passing once the build exists.
+      - If the specs or design turn out to be wrong, stop and update the change's artifacts before writing more code.
+  archive:
+    guidance:
+      - Run /opsx:verify for the change first if it has not been run since the last code change.
