@@ -1,0 +1,30 @@
+name: OpenSpec
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate specs and changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      # Keep in step with the CLI version you use locally (`openspec --version`).
+      - name: Install OpenSpec CLI
+        run: npm install -g @fission-ai/openspec@1.14.1
+
+      - name: Validate specs and active changes
+        run: openspec validate --all --strict --no-interactive
+
+      - name: Check archived changes have every task checked off
+        run: openspec validate --archived --no-interactive

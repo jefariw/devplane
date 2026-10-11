@@ -34,32 +34,35 @@ DevPlane will eventually automate:
 
 ## Project Roadmap
 
+Each phase is a thin slice that works end to end, runs locally, and costs $0.
+Items marked *stretch* are optional extras once the rest of their phase works.
+
 ### Phase 1 — Platform Core
-- [ ] Service catalog
-- [ ] Service creation workflow
-- [ ] Golden-path service templates
-- [ ] Repository provisioning
-- [ ] Platform API
+- [ ] Service catalog: services with an owner and a lifecycle stage
+- [ ] Platform API: versioned REST API with OpenAPI docs
+- [ ] Golden-path service template: Java REST API with PostgreSQL
+- [ ] Service creation workflow: generate a new service from the template
+- [ ] Repository provisioning: push the generated service to a new GitHub repository
+- [ ] Web UI for browsing the catalog and creating services
 
 ### Phase 2 — Deployment
-- [ ] Containerization
-- [ ] CI/CD
-- [ ] Infrastructure as Code
-- [ ] Kubernetes deployment
-- [ ] Cloud infrastructure
+- [ ] Containerization: generated services include a Dockerfile
+- [ ] CI/CD: generated services include a GitHub Actions pipeline
+- [ ] Kubernetes deployment to a local kind cluster
+- [ ] Deployment history and status for each service
+- [ ] *Stretch:* cloud infrastructure with Infrastructure as Code (Terraform)
 
 ### Phase 3 — Observability
-- [ ] Metrics
-- [ ] Logs
-- [ ] Distributed tracing
-- [ ] Service health monitoring
+- [ ] Metrics: generated services expose Prometheus metrics
+- [ ] Logs: generated services write structured JSON logs
+- [ ] Service health monitoring shown in the catalog
+- [ ] *Stretch:* Grafana dashboards and distributed tracing (OpenTelemetry)
 
 ### Phase 4 — AI Operations
-- [ ] Deployment diagnostics
-- [ ] Tool-based agent workflows
-- [ ] MCP integrations
-- [ ] Human approval flows
-- [ ] Automated remediation
+- [ ] Deployment diagnostics: a tool-using agent that explains failed deployments
+- [ ] Human approval before any suggested fix is applied
+- [ ] MCP server exposing the catalog and workflows to AI assistants
+- [ ] *Stretch:* automated remediation for known failure types
 
 ## Architecture
 
@@ -67,6 +70,42 @@ Architecture documentation will live in:
 
 `docs/architecture.md`
 
+Design decisions for individual features are recorded in each change's
+`design.md` (see Development Workflow below).
+
+## Development Workflow
+
+DevPlane is built with spec-driven development using
+[OpenSpec](https://github.com/Fission-AI/OpenSpec). Every feature starts as a
+change proposal, and code is written against specs that were agreed on first.
+
+- `openspec/specs/`: how the system behaves today, one folder per capability
+- `openspec/changes/`: proposed changes, each with a proposal, spec changes,
+  a design, and a task list
+- `openspec/changes/archive/`: completed changes, kept as a record of decisions
+
+Each change goes through the same loop, driven from Claude Code:
+
+1. **Explore** (`/opsx:explore`, optional): think through the problem first
+2. **Propose** (`/opsx:propose`): write the proposal, specs, design, and tasks
+3. **Review**: read and adjust the plan before any code is written
+4. **Apply** (`/opsx:apply`): implement the tasks, with tests
+5. **Verify** (`/opsx:verify`): check the code against the specs
+6. **Archive** (`/opsx:archive`): merge the change's specs into `openspec/specs/`
+
+Fixes that don't change behavior, such as typos, dependency bumps, and
+refactors, skip the proposal. CI validates every spec and change on each push
+and pull request.
+
+To browse specs and changes locally, install the OpenSpec CLI (Node.js 20.19+):
+
+```sh
+npm install -g @fission-ai/openspec@latest
+openspec list     # changes in progress
+openspec view     # interactive dashboard
+```
+
 ## Status
 
-DevPlane is currently under active development.
+DevPlane is under active development, starting with Phase 1. Changes in
+progress live in `openspec/changes/`.
