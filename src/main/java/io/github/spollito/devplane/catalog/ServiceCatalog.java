@@ -65,6 +65,24 @@ class ServiceCatalog {
 	}
 
 	/**
+	 * Replaces a service's owner, description, and lifecycle. The name never changes.
+	 * @throws ServiceNotFoundException if no service has this name
+	 */
+	ServiceEntity update(String name, String owner, @Nullable String description, Lifecycle lifecycle) {
+		ServiceEntity service = get(name);
+		service.update(owner, description, lifecycle, now());
+		return service;
+	}
+
+	/**
+	 * Removes a service from the catalog.
+	 * @throws ServiceNotFoundException if no service has this name
+	 */
+	void unregister(String name) {
+		repository.delete(get(name));
+	}
+
+	/**
 	 * The current time at the database's precision. PostgreSQL stores microseconds, so
 	 * finer precision would make a saved service differ from the same service read back.
 	 */

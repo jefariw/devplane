@@ -54,6 +54,13 @@ class ServiceEntity {
 		this.updatedAt = now;
 	}
 
+	void update(String owner, String description, Lifecycle lifecycle, Instant now) {
+		this.owner = owner;
+		this.description = description;
+		this.lifecycle = lifecycle;
+		this.updatedAt = now;
+	}
+
 	String getName() {
 		return name;
 	}

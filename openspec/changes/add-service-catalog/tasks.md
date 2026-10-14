@@ -32,8 +32,8 @@
 
 ## 5. Update and unregister services
 
-- [ ] 5.1 Add `PUT /api/v1/services/{name}` with the same validation as registration, and verify the "Updates a service", "Rejects an invalid update", and "Rejects an update to an unknown service" scenarios
-- [ ] 5.2 Add `DELETE /api/v1/services/{name}`, and verify the "Removes a service" and "Rejects deleting an unknown service" scenarios
+- [x] 5.1 Add `PUT /api/v1/services/{name}` with the same validation as registration, and verify the "Updates a service", "Rejects an invalid update", and "Rejects an update to an unknown service" scenarios
+- [x] 5.2 Add `DELETE /api/v1/services/{name}`, and verify the "Removes a service" and "Rejects deleting an unknown service" scenarios
 
 ## 6. Integration checks
 
