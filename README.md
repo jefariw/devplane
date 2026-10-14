@@ -73,6 +73,23 @@ Architecture documentation will live in:
 Design decisions for individual features are recorded in each change's
 `design.md` (see Development Workflow below).
 
+## Running Locally
+
+Prerequisites:
+
+- JDK 21
+- A running Docker runtime, such as Docker Desktop. DevPlane uses it for its
+  local PostgreSQL database and for integration tests.
+
+Gradle comes with the repository through the wrapper, so it doesn't need to be
+installed.
+
+```sh
+./gradlew bootRun   # start DevPlane on http://localhost:8080 (starts PostgreSQL too)
+./gradlew test      # run all tests
+./gradlew build     # compile, test, and package
+```
+
 ## Development Workflow
 
 DevPlane is built with spec-driven development using

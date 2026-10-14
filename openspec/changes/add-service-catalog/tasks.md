@@ -2,11 +2,11 @@
 
 ## 1. Project setup
 
-- [ ] 1.1 Install a Docker runtime (Docker Desktop or Colima) and verify `docker run --rm hello-world` succeeds
-- [ ] 1.2 Generate the application with Spring Initializr (Gradle - Kotlin, Java 21, Spring Boot 4.1.x, group `io.github.spollito`, artifact `devplane`) with Spring Web, Validation, Spring Data JPA, PostgreSQL Driver, Flyway Migration, Spring Boot Actuator, Docker Compose Support, and Testcontainers; place it at the repository root and verify `./gradlew build` passes
-- [ ] 1.3 Add `compose.yaml` with PostgreSQL 18 and set `spring.jpa.open-in-view=false`, `spring.jpa.hibernate.ddl-auto=validate`, and `server.address=127.0.0.1`; verify `./gradlew bootRun` starts both the database and the application
+- [x] 1.1 Install a Docker runtime (Docker Desktop or Colima) and verify `docker run --rm hello-world` succeeds
+- [x] 1.2 Generate the application with Spring Initializr (Gradle - Kotlin, Java 21, Spring Boot 4.1.x, group `io.github.spollito`, artifact `devplane`) with Spring Web, Validation, Spring Data JPA, PostgreSQL Driver, Flyway Migration, Spring Boot Actuator, Docker Compose Support, and Testcontainers; place it at the repository root and verify `./gradlew build` passes
+- [x] 1.3 Add `compose.yaml` with PostgreSQL 18 and set `spring.jpa.open-in-view=false`, `spring.jpa.hibernate.ddl-auto=validate`, and `server.address=127.0.0.1`; verify `./gradlew bootRun` starts both the database and the application
 - [ ] 1.4 Add `.github/workflows/build.yml` that runs `./gradlew build` on Java 21 for pushes to main and pull requests, and verify the workflow passes on GitHub
-- [ ] 1.5 Document the prerequisites (JDK 21 and a Docker runtime) and the build, test, and run commands in README.md and in a "Commands" section of CLAUDE.md, and verify each command works as written
+- [x] 1.5 Document the prerequisites (JDK 21 and a Docker runtime) and the build, test, and run commands in README.md and in a "Commands" section of CLAUDE.md, and verify each command works as written
 
 ## 2. Platform API conventions
 
