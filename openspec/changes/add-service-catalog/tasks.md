@@ -37,9 +37,9 @@
 
 ## 6. Integration checks
 
-- [ ] 6.1 Add an integration test that registers a service, restarts the application against the same database container, and finds the service again, covering the "Service is still listed after a restart" scenario
-- [ ] 6.2 Verify with a test that `/v3/api-docs` documents all five catalog endpoints
-- [ ] 6.3 Register, list, update, and unregister a service with curl against `./gradlew bootRun`, confirm each response matches the specs, then tick "Service catalog" and "Platform API" in the README roadmap
+- [x] 6.1 Add an integration test that registers a service, restarts the application against the same database container, and finds the service again, covering the "Service is still listed after a restart" scenario
+- [x] 6.2 Verify with a test that `/v3/api-docs` documents all five catalog endpoints
+- [x] 6.3 Register, list, update, and unregister a service with curl against `./gradlew bootRun`, confirm each response matches the specs, then tick "Service catalog" and "Platform API" in the README roadmap
 
 ## Workflow follow-up
 

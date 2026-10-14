@@ -38,8 +38,8 @@ Each phase is a thin slice that works end to end, runs locally, and costs $0.
 Items marked *stretch* are optional extras once the rest of their phase works.
 
 ### Phase 1 — Platform Core
-- [ ] Service catalog: services with an owner and a lifecycle stage
-- [ ] Platform API: versioned REST API with OpenAPI docs
+- [x] Service catalog: services with an owner and a lifecycle stage
+- [x] Platform API: versioned REST API with OpenAPI docs
 - [ ] Golden-path service template: Java REST API with PostgreSQL
 - [ ] Service creation workflow: generate a new service from the template
 - [ ] Repository provisioning: push the generated service to a new GitHub repository
