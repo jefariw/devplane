@@ -90,6 +90,9 @@ installed.
 ./gradlew build     # compile, test, and package
 ```
 
+While DevPlane is running, the interactive API documentation is at
+http://localhost:8080/swagger-ui.html.
+
 ## Development Workflow
 
 DevPlane is built with spec-driven development using

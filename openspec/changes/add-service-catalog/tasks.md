@@ -5,15 +5,15 @@
 - [x] 1.1 Install a Docker runtime (Docker Desktop or Colima) and verify `docker run --rm hello-world` succeeds
 - [x] 1.2 Generate the application with Spring Initializr (Gradle - Kotlin, Java 21, Spring Boot 4.1.x, group `io.github.spollito`, artifact `devplane`) with Spring Web, Validation, Spring Data JPA, PostgreSQL Driver, Flyway Migration, Spring Boot Actuator, Docker Compose Support, and Testcontainers; place it at the repository root and verify `./gradlew build` passes
 - [x] 1.3 Add `compose.yaml` with PostgreSQL 18 and set `spring.jpa.open-in-view=false`, `spring.jpa.hibernate.ddl-auto=validate`, and `server.address=127.0.0.1`; verify `./gradlew bootRun` starts both the database and the application
-- [ ] 1.4 Add `.github/workflows/build.yml` that runs `./gradlew build` on Java 21 for pushes to main and pull requests, and verify the workflow passes on GitHub
+- [x] 1.4 Add `.github/workflows/build.yml` that runs `./gradlew build` on Java 21 for pushes to main and pull requests, and verify the workflow passes on GitHub
 - [x] 1.5 Document the prerequisites (JDK 21 and a Docker runtime) and the build, test, and run commands in README.md and in a "Commands" section of CLAUDE.md, and verify each command works as written
 
 ## 2. Platform API conventions
 
-- [ ] 2.1 Add an `@RestControllerAdvice` that extends `ResponseEntityExceptionHandler` and has a generic 500 fallback, and verify the "Unknown endpoint", "Malformed request body", and "Unexpected errors hide internals" scenarios with tests that use a test-only controller
-- [ ] 2.2 Add the `errors` array to validation failures, and verify the "Reports every invalid field" scenario with the test-only controller
-- [ ] 2.3 Add springdoc-openapi 3.x, verify the "Serves the OpenAPI description" and "Serves the documentation page" scenarios with tests, and add the documentation URL to README.md
-- [ ] 2.4 Verify the "Healthy" and "Database unreachable" scenarios with tests, giving the unreachable case its own database container
+- [x] 2.1 Add an `@RestControllerAdvice` that extends `ResponseEntityExceptionHandler` and has a generic 500 fallback, and verify the "Unknown endpoint", "Malformed request body", and "Unexpected errors hide internals" scenarios with tests that use a test-only controller
+- [x] 2.2 Add the `errors` array to validation failures, and verify the "Reports every invalid field" scenario with the test-only controller
+- [x] 2.3 Add springdoc-openapi 3.x, verify the "Serves the OpenAPI description" and "Serves the documentation page" scenarios with tests, and add the documentation URL to README.md
+- [x] 2.4 Verify the "Healthy" and "Database unreachable" scenarios with tests, giving the unreachable case its own database container
 
 ## 3. Register services
 
