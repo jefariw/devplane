@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:18'
+    environment:
+      - 'POSTGRES_DB=devplane'
+      - 'POSTGRES_PASSWORD=devplane'
+      - 'POSTGRES_USER=devplane'
+    ports:
+      - '5432'

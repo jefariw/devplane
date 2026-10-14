@@ -4,6 +4,16 @@ A small internal developer platform: service catalog, golden-path templates,
 deployment, observability, and AI-assisted operations. It's a personal portfolio
 project; README.md has the vision and the phased roadmap.
 
+## Commands
+
+Docker must be running for tests and `bootRun`.
+
+- `./gradlew build`: compile, run all tests, and package. Must pass before a task
+  is checked off.
+- `./gradlew test --tests '*ClassNameTests'`: run one test class.
+- `./gradlew bootRun`: start the app on http://localhost:8080. Spring Boot starts
+  PostgreSQL from `compose.yaml`.
+
 ## Spec-driven development with OpenSpec
 
 Behavior is agreed in specs before code is written.
