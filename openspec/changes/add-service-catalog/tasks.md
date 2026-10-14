@@ -17,12 +17,12 @@
 
 ## 3. Register services
 
-- [ ] 3.1 Add a Flyway migration that creates the `services` table (surrogate id, unique name, owner, description, lifecycle with a CHECK constraint, timestamps), and verify the application starts against an empty database with schema validation on
-- [ ] 3.2 Add `ServiceEntity`, the `Lifecycle` enum, and the Spring Data repository, and verify with a repository test that a service saves and reloads and that the database rejects a duplicate name
-- [ ] 3.3 Add `POST /api/v1/services` backed by `ServiceCatalog` (timestamps from an injected `Clock`), and verify the "Registers a new service", "Accepts a valid identifier", "Defaults to experimental", and "Accepts an explicit stage" scenarios with integration tests
-- [ ] 3.4 Add request validation for names, owners, description length, and lifecycle values, and verify the "Rejects missing required fields", "Rejects an overlong description", "Rejects an unknown stage", "Rejects uppercase letters and spaces", "Rejects a name longer than 63 characters", "Rejects a leading digit or a trailing hyphen", and "Applies the same rules to owners" scenarios (parameterized tests where scenarios share a shape)
-- [ ] 3.5 Turn a duplicate-name constraint violation into 409 Conflict, and verify the "Rejects a duplicate name" scenario
-- [ ] 3.6 Describe the package layout and the `services` table in docs/architecture.md, and verify the document matches the code
+- [x] 3.1 Add a Flyway migration that creates the `services` table (surrogate id, unique name, owner, description, lifecycle with a CHECK constraint, timestamps), and verify the application starts against an empty database with schema validation on
+- [x] 3.2 Add `ServiceEntity`, the `Lifecycle` enum, and the Spring Data repository, and verify with a repository test that a service saves and reloads and that the database rejects a duplicate name
+- [x] 3.3 Add `POST /api/v1/services` backed by `ServiceCatalog` (timestamps from an injected `Clock`), and verify the "Registers a new service", "Accepts a valid identifier", "Defaults to experimental", and "Accepts an explicit stage" scenarios with integration tests
+- [x] 3.4 Add request validation for names, owners, description length, and lifecycle values, and verify the "Rejects missing required fields", "Rejects an overlong description", "Rejects an unknown stage", "Rejects uppercase letters and spaces", "Rejects a name longer than 63 characters", "Rejects a leading digit or a trailing hyphen", and "Applies the same rules to owners" scenarios (parameterized tests where scenarios share a shape)
+- [x] 3.5 Turn a duplicate-name constraint violation into 409 Conflict, and verify the "Rejects a duplicate name" scenario
+- [x] 3.6 Describe the package layout and the `services` table in docs/architecture.md, and verify the document matches the code
 
 ## 4. View and list services
 
