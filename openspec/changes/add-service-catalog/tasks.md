@@ -26,9 +26,9 @@
 
 ## 4. View and list services
 
-- [ ] 4.1 Add `GET /api/v1/services/{name}`, and verify the "Returns a registered service" and "Returns 404 for an unknown service" scenarios
-- [ ] 4.2 Add `GET /api/v1/services` returning a `PageResponse` sorted by name (0-based pages, default size 20, maximum 100), and verify the "Lists services alphabetically", "Empty catalog", "Returns the requested page", and "Caps the page size" scenarios
-- [ ] 4.3 Add the `owner` query parameter, and verify the "Lists only the owner's services" and "Owner with no services" scenarios
+- [x] 4.1 Add `GET /api/v1/services/{name}`, and verify the "Returns a registered service" and "Returns 404 for an unknown service" scenarios
+- [x] 4.2 Add `GET /api/v1/services` returning a `PageResponse` sorted by name (0-based pages, default size 20, maximum 100), and verify the "Lists services alphabetically", "Empty catalog", "Returns the requested page", and "Caps the page size" scenarios
+- [x] 4.3 Add the `owner` query parameter, and verify the "Lists only the owner's services" and "Owner with no services" scenarios
 
 ## 5. Update and unregister services
 

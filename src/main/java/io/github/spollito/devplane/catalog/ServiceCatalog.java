@@ -7,6 +7,8 @@ import java.time.temporal.ChronoUnit;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +47,21 @@ class ServiceCatalog {
 			}
 			throw ex;
 		}
+	}
+
+	/**
+	 * Returns the service with the given name.
+	 * @throws ServiceNotFoundException if no service has this name
+	 */
+	@Transactional(readOnly = true)
+	ServiceEntity get(String name) {
+		return repository.findByName(name).orElseThrow(() -> new ServiceNotFoundException(name));
+	}
+
+	/** Lists services one page at a time, optionally only those with the given owner. */
+	@Transactional(readOnly = true)
+	Page<ServiceEntity> list(@Nullable String owner, Pageable pageable) {
+		return (owner != null) ? repository.findByOwner(owner, pageable) : repository.findAll(pageable);
 	}
 
 	/**
