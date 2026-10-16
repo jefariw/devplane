@@ -24,8 +24,8 @@
 
 ## 5. Integration checks
 
-- [ ] 5.1 Run the generated `orders-api` from `build/generated-projects/orders-api` with `./gradlew bootRun`, create, list, and view items, check `/actuator/health` and `/v3/api-docs` with curl, and confirm each response matches the specs
-- [ ] 5.2 Run `./gradlew build` in DevPlane, confirm CI passes, then tick "Golden-path service template" in the README roadmap
+- [x] 5.1 Run the generated `orders-api` from `build/generated-projects/orders-api` with `./gradlew bootRun`, create, list, and view items, check `/actuator/health` and `/v3/api-docs` with curl, and confirm each response matches the specs
+- [x] 5.2 Run `./gradlew build` in DevPlane, confirm CI passes, then tick "Golden-path service template" in the README roadmap
 
 ## Workflow follow-up
 
