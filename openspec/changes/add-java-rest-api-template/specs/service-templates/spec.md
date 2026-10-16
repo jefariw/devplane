@@ -95,6 +95,7 @@ The system SHALL generate services that report their health at `GET /actuator/he
 #### Scenario: Serves the API description
 - **WHEN** a client sends `GET /v3/api-docs`
 - **THEN** the response status is 200 OK and the document describes the `/api/v1/items` endpoints
+- **AND** the document's title is the service name
 
 ### Requirement: Generated README describes the service
 The system SHALL generate a `README.md` that names the service, its owner, and its description, and explains how to run and test the service.

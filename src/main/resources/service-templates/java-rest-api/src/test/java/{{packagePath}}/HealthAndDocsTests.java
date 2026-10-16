@@ -35,6 +35,7 @@ class HealthAndDocsTests {
 			.extractingPath("$.paths")
 			.asMap()
 			.containsKeys("/api/v1/items", "/api/v1/items/{id}");
+		assertThat(result).bodyJson().extractingPath("$.info.title").isEqualTo("{{serviceName}}");
 	}
 
 }

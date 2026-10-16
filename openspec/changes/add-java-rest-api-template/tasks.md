@@ -21,6 +21,7 @@
 
 - [x] 4.1 Add Actuator health and springdoc to the template, with template tests for "Reports healthy", "Reports an unreachable database", and "Serves the API description" added to the expected list; verify with `./gradlew templateTest`
 - [x] 4.2 Add the README template, and verify the "README identifies the service" and "README without a description" scenarios with generator tests
+- [x] 4.3 Title the generated service's OpenAPI document with the service name (found by `/opsx:verify`), and verify the extended "Serves the API description" scenario with `./gradlew templateTest`
 
 ## 5. Integration checks
 
