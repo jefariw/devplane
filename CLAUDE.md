@@ -8,9 +8,14 @@ project; README.md has the vision and the phased roadmap.
 
 Docker must be running for tests and `bootRun`.
 
-- `./gradlew build`: compile, run all tests, and package. Must pass before a task
-  is checked off.
-- `./gradlew test --tests '*ClassNameTests'`: run one test class.
+- `./gradlew build`: compile, run all tests (including `templateTest`), and
+  package. Must pass before a task is checked off.
+- `./gradlew test`: the fast tests. `./gradlew test --tests '*ClassNameTests'` runs
+  one test class.
+- `./gradlew templateTest`: generates `orders-api` from the `java-rest-api` template
+  into `build/generated-projects/` and runs that project's own build. Template
+  files live in `src/main/resources/service-templates/`; DevPlane doesn't compile
+  them, so this is how template mistakes are caught.
 - `./gradlew bootRun`: start the app on http://localhost:8080. Spring Boot starts
   PostgreSQL from `compose.yaml`.
 

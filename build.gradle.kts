@@ -42,3 +42,26 @@ dependencies {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+// Tests tagged "template" generate a project and run its whole build, which takes
+// a minute or two, so they run in templateTest (part of build) instead of test.
+tasks.test {
+	useJUnitPlatform {
+		excludeTags("template")
+	}
+}
+
+val templateTest by tasks.registering(Test::class) {
+	description = "Generates a project from each service template and builds it."
+	group = LifecycleBasePlugin.VERIFICATION_GROUP
+	testClassesDirs = sourceSets.test.get().output.classesDirs
+	classpath = sourceSets.test.get().runtimeClasspath
+	useJUnitPlatform {
+		includeTags("template")
+	}
+	shouldRunAfter(tasks.test)
+}
+
+tasks.check {
+	dependsOn(templateTest)
+}

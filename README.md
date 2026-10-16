@@ -40,7 +40,7 @@ Items marked *stretch* are optional extras once the rest of their phase works.
 ### Phase 1 — Platform Core
 - [x] Service catalog: services with an owner and a lifecycle stage
 - [x] Platform API: versioned REST API with OpenAPI docs
-- [ ] Golden-path service template: Java REST API with PostgreSQL
+- [x] Golden-path service template: Java REST API with PostgreSQL
 - [ ] Service creation workflow: generate a new service from the template
 - [ ] Repository provisioning: push the generated service to a new GitHub repository
 - [ ] Web UI for browsing the catalog and creating services
@@ -85,13 +85,18 @@ Gradle comes with the repository through the wrapper, so it doesn't need to be
 installed.
 
 ```sh
-./gradlew bootRun   # start DevPlane on http://localhost:8080 (starts PostgreSQL too)
-./gradlew test      # run all tests
-./gradlew build     # compile, test, and package
+./gradlew bootRun        # start DevPlane on http://localhost:8080 (starts PostgreSQL too)
+./gradlew test           # run the fast tests
+./gradlew templateTest   # generate a project from each template and build it (a minute or two)
+./gradlew build          # compile, run every test including templateTest, and package
 ```
 
 While DevPlane is running, the interactive API documentation is at
 http://localhost:8080/swagger-ui.html.
+
+`templateTest` leaves the project it generates in
+`build/generated-projects/orders-api`, so you can open it, or run it with
+`./gradlew bootRun` from that directory.
 
 ## Development Workflow
 
