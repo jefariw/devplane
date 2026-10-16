@@ -88,6 +88,14 @@ class ProjectGeneratorTests {
 	}
 
 	@Test
+	void keepsNamesThatContainDoubleUnderscores() {
+		Path project = generate("test-template", ORDERS_API);
+
+		assertThat(project.resolve("db/V1__create_things_table.sql")).exists();
+		assertThat(project.resolve("scripts/__init__.py")).exists();
+	}
+
+	@Test
 	void copiesJarFilesUnchanged() throws IOException {
 		Path project = generate("test-template", ORDERS_API);
 
@@ -157,7 +165,7 @@ class ProjectGeneratorTests {
 
 	@ParameterizedTest
 	@CsvSource({ "broken-content, Unknown placeholder {{unknownVariable}}",
-			"broken-path, Unknown placeholder __unknownToken__", "malformed, Malformed placeholder" })
+			"broken-path, Unknown placeholder {{unknownToken}}", "malformed, Malformed placeholder" })
 	void failsOnALeftoverPlaceholderWithoutWritingAnything(String templateName, String message) {
 		Path target = workspace.resolve("project");
 

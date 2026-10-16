@@ -63,11 +63,13 @@ Golden-path templates are ordinary project files stored as resources in
 `src/main/resources/service-templates/<template-name>/`. `ProjectGenerator` copies
 a template into an empty directory for a service name, owner, and description:
 
-- `{{variable}}` in file contents and `__variable__` in file paths are replaced
-  with values such as `serviceName`, `packageName`, and `className`. An unknown or
+- `{{variable}}` in file contents and file paths is replaced with values such as
+  `serviceName`, `packageName`, and `className`, for example
+  `src/main/java/{{packagePath}}/{{className}}Application.java`. An unknown or
   malformed placeholder fails generation before anything is written.
-- Files named with a leading `_` become dotfiles (`_gitignore` becomes
-  `.gitignore`), because Gradle leaves `.gitignore` files out of resources.
+- Files named with a single leading `_` become dotfiles (`_gitignore` becomes
+  `.gitignore`), because Gradle leaves `.gitignore` files out of resources. Names
+  like `__init__.py` and Flyway's `V1__create_items_table.sql` are kept as they are.
 - `.jar` files are copied unchanged, and `gradlew` is made executable.
 
 The only template so far is `java-rest-api`. Because DevPlane doesn't compile

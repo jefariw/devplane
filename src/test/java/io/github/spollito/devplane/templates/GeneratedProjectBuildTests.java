@@ -32,7 +32,8 @@ class GeneratedProjectBuildTests {
 	private static final Path PROJECT = Path.of("build/generated-projects/orders-api").toAbsolutePath();
 
 	/** Tests the generated project must run and pass. Each covers a spec scenario. */
-	private static final List<String> EXPECTED_TESTS = List.of("contextLoads");
+	private static final List<String> EXPECTED_TESTS = List.of("contextLoads", "createsAnItem", "listsItems",
+			"returns404ForAnUnknownItem", "rejectsAnItemWithoutAName");
 
 	@Test
 	void buildsAFreshlyGeneratedProject() throws Exception {

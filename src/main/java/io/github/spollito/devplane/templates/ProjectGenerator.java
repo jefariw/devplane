@@ -30,11 +30,12 @@ import org.springframework.web.util.UriUtils;
  * Generates a project from a template stored on the classpath under
  * {@code service-templates/<template-name>/}.
  * <p>
- * Templates use {@code {{variable}}} in file contents and {@code __variable__} in
- * file paths. A file name starting with {@code _} is a dotfile ({@code _gitignore}
- * becomes {@code .gitignore}), {@code .jar} files are copied unchanged, and
- * {@code gradlew} is made executable. Every file is rendered before anything is
- * written, so a failure leaves the target directory untouched.
+ * Templates use {@code {{variable}}} in file contents and file paths. A file name
+ * starting with a single {@code _} is a dotfile ({@code _gitignore} becomes
+ * {@code .gitignore}, while {@code __init__.py} is left alone), {@code .jar} files
+ * are copied unchanged, and {@code gradlew} is made executable. Every file is
+ * rendered before anything is written, so a failure leaves the target directory
+ * untouched.
  */
 @Component
 public class ProjectGenerator {
@@ -43,9 +44,7 @@ public class ProjectGenerator {
 
 	private static final Pattern TEMPLATE_NAME = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
 
-	private static final Pattern CONTENT_PLACEHOLDER = Pattern.compile("\\{\\{([A-Za-z]+)}}");
-
-	private static final Pattern PATH_PLACEHOLDER = Pattern.compile("__([A-Za-z]+)__");
+	private static final Pattern PLACEHOLDER = Pattern.compile("\\{\\{([A-Za-z]+)}}");
 
 	private static final Pattern IDENTIFIER = Pattern.compile(CatalogConstraints.IDENTIFIER_PATTERN);
 
@@ -133,30 +132,28 @@ public class ProjectGenerator {
 	}
 
 	private static TemplateFile render(TemplateFile file, Map<String, String> variables) {
-		String path = fill(PATH_PLACEHOLDER, "__", file.path(), variables, file.path());
+		String path = fill(file.path(), variables, file.path());
 		String fileName = path.substring(path.lastIndexOf('/') + 1);
-		if (fileName.startsWith("_")) {
+		if (fileName.startsWith("_") && !fileName.startsWith("__")) {
 			path = path.substring(0, path.length() - fileName.length()) + "." + fileName.substring(1);
 		}
 		if (path.endsWith(".jar")) {
 			return new TemplateFile(path, file.content());
 		}
 		String content = new String(file.content(), StandardCharsets.UTF_8);
-		return new TemplateFile(path,
-				fill(CONTENT_PLACEHOLDER, "{{", content, variables, file.path()).getBytes(StandardCharsets.UTF_8));
+		return new TemplateFile(path, fill(content, variables, file.path()).getBytes(StandardCharsets.UTF_8));
 	}
 
 	/**
 	 * Replaces each placeholder in {@code text}. Fails on an unknown variable, and on
-	 * a {@code marker} left over outside a well-formed placeholder, so a typo in a
-	 * template can never reach a generated project.
+	 * a {@code {{} outside a well-formed placeholder, so a typo in a template can
+	 * never reach a generated project.
 	 */
-	private static String fill(Pattern placeholder, String marker, String text, Map<String, String> variables,
-			String templatePath) {
-		if (placeholder.matcher(text).replaceAll("").contains(marker)) {
+	private static String fill(String text, Map<String, String> variables, String templatePath) {
+		if (PLACEHOLDER.matcher(text).replaceAll("").contains("{{")) {
 			throw new ProjectGenerationException("Malformed placeholder in template file " + templatePath);
 		}
-		Matcher matcher = placeholder.matcher(text);
+		Matcher matcher = PLACEHOLDER.matcher(text);
 		StringBuilder result = new StringBuilder();
 		while (matcher.find()) {
 			String value = variables.get(matcher.group(1));

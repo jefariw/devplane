@@ -43,10 +43,15 @@ same way from the filesystem (tests, `bootRun`) and from the packaged jar.
 
 ### 2. Minimal placeholder substitution, no template engine
 
-File contents use `{{variable}}` and file paths use `__variable__`. Paths avoid
-braces because resource URLs and Ant-style patterns treat them specially. The
-generator replaces known variables and fails if any `{{` or `__name__` token is
-left, so a typo in the template can never ship.
+File contents and file paths both use `{{variable}}`, for example
+`src/main/java/{{packagePath}}/{{className}}Application.java`. The generator
+replaces known variables and fails on an unknown variable or a stray `{{`, so a
+typo in the template can never ship.
+
+An earlier version used `__variable__` in paths to avoid braces in file names.
+Implementation showed that collides with real names: Flyway migrations
+(`V1__create_items_table.sql`) and Python's `__init__.py`. Brace file names were
+checked to survive Gradle's resource processing and jar packaging.
 
 Mustache was rejected because its sections and loops aren't needed, and it would
 be DevPlane's only use of it. FreeMarker and Thymeleaf were rejected for the same
@@ -69,9 +74,9 @@ testable.
 
 File handling rules:
 
-- Files whose names start with `_` are dotfiles: `_gitignore` becomes
-  `.gitignore`. Storing them undotted also keeps the template's ignore rules from
-  applying to DevPlane's own repository.
+- Files whose names start with a single `_` are dotfiles: `_gitignore` becomes
+  `.gitignore`, while `__init__.py` is left alone. Storing them undotted also keeps
+  the template's ignore rules from applying to DevPlane's own repository.
 - `.jar` files are copied byte for byte, without substitution.
 - `gradlew` is made executable after it is written.
 

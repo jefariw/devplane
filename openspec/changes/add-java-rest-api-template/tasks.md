@@ -3,7 +3,7 @@
 ## 1. Generator
 
 - [x] 1.1 Make `CatalogConstraints` public, and add the `templates` package with `NewProject`, `ProjectGenerationException`, and `ProjectNames`; verify the "Derives names from a hyphenated name", "Keeps digits in names", and "Avoids Java keywords in the package" scenarios with parameterized unit tests
-- [x] 1.2 Add `ProjectGenerator`: resolve a template from the classpath, fill `{{…}}` and `__…__` placeholders, restore `_`-prefixed dotfiles, copy `.jar` files unchanged, make `gradlew` executable, and fail on leftover placeholders, rendering everything before writing; verify with a test-only template in `src/test/resources/service-templates/` and tests for "Generates the same files for the same inputs", "Refuses a non-empty target directory", "Rejects an unknown template", and "Rejects an invalid service name", plus the dotfile, binary, permission, and leftover-placeholder rules
+- [x] 1.2 Add `ProjectGenerator`: resolve a template from the classpath, fill `{{…}}` placeholders in file contents and paths, restore single-`_`-prefixed dotfiles, copy `.jar` files unchanged, make `gradlew` executable, and fail on leftover placeholders, rendering everything before writing; verify with a test-only template in `src/test/resources/service-templates/` and tests for "Generates the same files for the same inputs", "Refuses a non-empty target directory", "Rejects an unknown template", and "Rejects an invalid service name", plus the dotfile, binary, permission, and leftover-placeholder rules
 - [x] 1.3 Add the `devplane.templates.base-package` property (default `io.github.spollito`) and fill `springBootVersion` from `SpringBootVersion`; verify with a test that generates the test-only template under a custom base package
 
 ## 2. Template skeleton and build test
@@ -14,8 +14,8 @@
 
 ## 3. Example resource
 
-- [ ] 3.1 Add the items Flyway migration, entity, repository, `POST /api/v1/items`, `GET /api/v1/items/{id}`, and the problem-details exception handler to the template, with template tests for "Creates an item" and "Returns 404 for an unknown item" added to the build test's expected list; verify with `./gradlew templateTest`
-- [ ] 3.2 Add `GET /api/v1/items` and name validation with the `errors` array, with template tests for "Lists items" and "Rejects an item without a name" added to the expected list; verify with `./gradlew templateTest`
+- [x] 3.1 Add the items Flyway migration, entity, repository, `POST /api/v1/items`, `GET /api/v1/items/{id}`, and the problem-details exception handler to the template, with template tests for "Creates an item" and "Returns 404 for an unknown item" added to the build test's expected list; verify with `./gradlew templateTest`
+- [x] 3.2 Add `GET /api/v1/items` and name validation with the `errors` array, with template tests for "Lists items" and "Rejects an item without a name" added to the expected list; verify with `./gradlew templateTest`
 
 ## 4. Health, API docs, and README
 
