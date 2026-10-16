@@ -2,9 +2,9 @@
 
 ## 1. Generator
 
-- [ ] 1.1 Make `CatalogConstraints` public, and add the `templates` package with `NewProject`, `ProjectGenerationException`, and `ProjectNames`; verify the "Derives names from a hyphenated name", "Keeps digits in names", and "Avoids Java keywords in the package" scenarios with parameterized unit tests
-- [ ] 1.2 Add `ProjectGenerator`: resolve a template from the classpath, fill `{{…}}` and `__…__` placeholders, restore `_`-prefixed dotfiles, copy `.jar` files unchanged, make `gradlew` executable, and fail on leftover placeholders, rendering everything before writing; verify with a test-only template in `src/test/resources/service-templates/` and tests for "Generates the same files for the same inputs", "Refuses a non-empty target directory", "Rejects an unknown template", and "Rejects an invalid service name", plus the dotfile, binary, permission, and leftover-placeholder rules
-- [ ] 1.3 Add the `devplane.templates.base-package` property (default `io.github.spollito`) and fill `springBootVersion` from `SpringBootVersion`; verify with a test that generates the test-only template under a custom base package
+- [x] 1.1 Make `CatalogConstraints` public, and add the `templates` package with `NewProject`, `ProjectGenerationException`, and `ProjectNames`; verify the "Derives names from a hyphenated name", "Keeps digits in names", and "Avoids Java keywords in the package" scenarios with parameterized unit tests
+- [x] 1.2 Add `ProjectGenerator`: resolve a template from the classpath, fill `{{…}}` and `__…__` placeholders, restore `_`-prefixed dotfiles, copy `.jar` files unchanged, make `gradlew` executable, and fail on leftover placeholders, rendering everything before writing; verify with a test-only template in `src/test/resources/service-templates/` and tests for "Generates the same files for the same inputs", "Refuses a non-empty target directory", "Rejects an unknown template", and "Rejects an invalid service name", plus the dotfile, binary, permission, and leftover-placeholder rules
+- [x] 1.3 Add the `devplane.templates.base-package` property (default `io.github.spollito`) and fill `springBootVersion` from `SpringBootVersion`; verify with a test that generates the test-only template under a custom base package
 
 ## 2. Template skeleton and build test
 
