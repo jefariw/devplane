@@ -44,6 +44,22 @@ class JavaRestApiTemplateTests {
 			.doesNotContain("{{"));
 	}
 
+	@Test
+	void readmeIdentifiesTheService() {
+		assertThat(project.resolve("README.md")).content()
+			.startsWith("# orders-api\n")
+			.contains("Order management REST API", "`payments-team`", "./gradlew bootRun", "./gradlew test");
+	}
+
+	@Test
+	void readmeWithoutADescription() {
+		Path withoutDescription = workspace.resolve("without-description");
+		new ProjectGenerator("io.github.spollito").generate("java-rest-api",
+				new NewProject("orders-api", "payments-team", null), withoutDescription);
+
+		assertThat(withoutDescription.resolve("README.md")).content().contains("No description provided.");
+	}
+
 	private List<Path> textFiles() throws IOException {
 		try (Stream<Path> files = Files.walk(project)) {
 			return files.filter(Files::isRegularFile).filter(file -> !file.toString().endsWith(".jar")).toList();

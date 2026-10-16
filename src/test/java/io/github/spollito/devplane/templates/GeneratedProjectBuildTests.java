@@ -33,7 +33,8 @@ class GeneratedProjectBuildTests {
 
 	/** Tests the generated project must run and pass. Each covers a spec scenario. */
 	private static final List<String> EXPECTED_TESTS = List.of("contextLoads", "createsAnItem", "listsItems",
-			"returns404ForAnUnknownItem", "rejectsAnItemWithoutAName");
+			"returns404ForAnUnknownItem", "rejectsAnItemWithoutAName", "reportsHealthy", "reportsAnUnreachableDatabase",
+			"servesTheApiDescription");
 
 	@Test
 	void buildsAFreshlyGeneratedProject() throws Exception {
