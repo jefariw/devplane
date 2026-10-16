@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:18'
+    environment:
+      - 'POSTGRES_DB={{databaseName}}'
+      - 'POSTGRES_PASSWORD={{databaseName}}'
+      - 'POSTGRES_USER={{databaseName}}'
+    ports:
+      - '5432'

@@ -27,9 +27,10 @@ such as templates and deployments become sibling packages:
 
 ```
 io.github.spollito.devplane
-├── api/       behavior shared by every endpoint: problem details error responses
-└── catalog/   the service catalog: REST controller, request and response records,
-               ServiceCatalog (business rules), ServiceEntity and its repository
+├── api/        behavior shared by every endpoint: problem details error responses
+├── catalog/    the service catalog: REST controller, request and response records,
+│               ServiceCatalog (business rules), ServiceEntity and its repository
+└── templates/  ProjectGenerator, which generates new service projects from templates
 ```
 
 A request flows from the controller, which validates its body, to
@@ -55,3 +56,20 @@ The `services` table holds the catalog:
 | `description` | `varchar(300)` | Optional |
 | `lifecycle` | `varchar(20)` | `EXPERIMENTAL`, `PRODUCTION`, or `DEPRECATED` (check constraint) |
 | `created_at`, `updated_at` | `timestamptz` | Set by the application, at microsecond precision |
+
+### Service Templates
+
+Golden-path templates are ordinary project files stored as resources in
+`src/main/resources/service-templates/<template-name>/`. `ProjectGenerator` copies
+a template into an empty directory for a service name, owner, and description:
+
+- `{{variable}}` in file contents and `__variable__` in file paths are replaced
+  with values such as `serviceName`, `packageName`, and `className`. An unknown or
+  malformed placeholder fails generation before anything is written.
+- Files named with a leading `_` become dotfiles (`_gitignore` becomes
+  `.gitignore`), because Gradle leaves `.gitignore` files out of resources.
+- `.jar` files are copied unchanged, and `gradlew` is made executable.
+
+The only template so far is `java-rest-api`. Because DevPlane doesn't compile
+template files, the `templateTest` Gradle task generates a project from it and
+runs that project's own build.

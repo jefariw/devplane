@@ -8,9 +8,9 @@
 
 ## 2. Template skeleton and build test
 
-- [ ] 2.1 Add the `java-rest-api` skeleton: settings and build files, the Gradle wrapper copied from DevPlane, `_gitignore`, `_gitattributes`, `compose.yaml`, `application.properties`, the application class, Testcontainers configuration, and a context test; verify the "Generates a java-rest-api project" scenario with a generator test
-- [ ] 2.2 Add `GeneratedProjectBuildTests` (tagged `template`), which generates `orders-api` into `build/generated-projects/orders-api`, runs its `./gradlew build` with a timeout, and checks the generated project's JUnit reports for an expected list of passing tests; add a `templateTest` task that `check` depends on, and exclude the tag from `test`; verify the "Builds a freshly generated project" scenario with `./gradlew templateTest`, and that `./gradlew test` skips it
-- [ ] 2.3 Document `./gradlew templateTest` and where generated projects appear in README.md and CLAUDE.md, describe the `templates` package and template layout in docs/architecture.md, and verify the documented commands work as written
+- [x] 2.1 Add the `java-rest-api` skeleton: settings and build files, the Gradle wrapper copied from DevPlane, `_gitignore`, `_gitattributes`, `compose.yaml`, `application.properties`, the application class, Testcontainers configuration, and a context test; verify the "Generates a java-rest-api project" scenario with a generator test
+- [x] 2.2 Add `GeneratedProjectBuildTests` (tagged `template`), which generates `orders-api` into `build/generated-projects/orders-api`, runs its `./gradlew build` with a timeout, and checks the generated project's JUnit reports for an expected list of passing tests; add a `templateTest` task that `check` depends on, and exclude the tag from `test`; verify the "Builds a freshly generated project" scenario with `./gradlew templateTest`, and that `./gradlew test` skips it
+- [x] 2.3 Document `./gradlew templateTest` and where generated projects appear in README.md and CLAUDE.md, describe the `templates` package and template layout in docs/architecture.md, and verify the documented commands work as written
 
 ## 3. Example resource
 
