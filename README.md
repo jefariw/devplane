@@ -42,7 +42,7 @@ Items marked *stretch* are optional extras once the rest of their phase works.
 - [x] Platform API: versioned REST API with OpenAPI docs
 - [x] Golden-path service template: Java REST API with PostgreSQL
 - [x] Service creation workflow: generate a new service from the template
-- [ ] Repository provisioning: push the generated service to a new GitHub repository
+- [x] Repository provisioning: push the generated service to a new GitHub repository
 - [ ] Web UI for browsing the catalog and creating services
 
 ### Phase 2 — Deployment
