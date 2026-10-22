@@ -30,7 +30,9 @@ io.github.spollito.devplane
 ├── api/        behavior shared by every endpoint: problem details error responses
 ├── catalog/    the service catalog: REST controller, request and response records,
 │               ServiceCatalog (business rules), ServiceEntity and its repository
-└── templates/  ProjectGenerator, which generates new service projects from templates
+└── templates/  service templates: ProjectGenerator, which generates new service
+                projects, ProjectArchiver, which zips them, and the endpoints that
+                list templates and download a service's project
 ```
 
 A request flows from the controller, which validates its body, to
@@ -94,3 +96,10 @@ the generator writes into the archive through the same `Files` calls it uses for
 directory. Making `gradlew` executable becomes that entry's Unix mode, so the
 project still builds after it's unzipped on Linux or macOS. The temporary file is
 deleted once the archive has been read into memory.
+
+`GET /api/v1/services/{name}/project` ties these together. It checks that the
+requested template (`java-rest-api` by default) is listed, looks the service up
+with `ServiceCatalog.lookUp`, and returns the archive as `<name>.zip`. Nothing is
+stored: every request generates the project from the service's current details.
+The endpoint lives in the `templates` package even though its path is under the
+service, so that `templates` depends on `catalog` and never the reverse.

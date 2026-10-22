@@ -15,13 +15,13 @@
 
 ## 4. Download endpoint
 
-- [ ] 4.1 Add `ProjectController` with `GET /api/v1/services/{name}/project` and the optional `template` parameter (default `java-rest-api`), returning `application/zip` as a `<name>.zip` attachment; verify the "Downloads a generated project", "Keeps the Gradle wrapper executable", "Uses the service's current details", and "Accepts a listed template" scenarios with integration tests
-- [ ] 4.2 Add `UnknownTemplateException` (400, with an `errors` entry for `template`), checked before the service lookup; verify the "Rejects an unknown template" and "Returns 404 for an unknown service" scenarios with integration tests, including a 404 request whose `Accept` header allows only `application/zip`, and check that the test-only `test-template` is rejected too
-- [ ] 4.3 Check that `/v3/api-docs` documents the project endpoint with an `application/zip` response, add the endpoint to docs/architecture.md, and add a "Creating a service" section to README.md that registers a service and downloads its project with curl; verify the README's commands work as written against `./gradlew bootRun`
+- [x] 4.1 Add `ProjectController` with `GET /api/v1/services/{name}/project` and the optional `template` parameter (default `java-rest-api`), returning `application/zip` as a `<name>.zip` attachment; verify the "Downloads a generated project", "Keeps the Gradle wrapper executable", "Uses the service's current details", and "Accepts a listed template" scenarios with integration tests
+- [x] 4.2 Add `UnknownTemplateException` (400, with an `errors` entry for `template`), checked before the service lookup; verify the "Rejects an unknown template" and "Returns 404 for an unknown service" scenarios with integration tests, including a 404 request whose `Accept` header allows only `application/zip`, and check that the test-only `test-template` is rejected too
+- [x] 4.3 Check that `/v3/api-docs` documents the project endpoint with an `application/zip` response, add the endpoint to docs/architecture.md, and add a "Creating a service" section to README.md that registers a service and downloads its project with curl; verify the README's commands work as written against `./gradlew bootRun`
 
 ## 5. Integration checks
 
-- [ ] 5.1 Run DevPlane with `./gradlew bootRun`, register `orders-api`, download its project with curl, unzip it, and run the unzipped project's own build (`gradlew.bat build` on Windows); also download it from `/swagger-ui.html` in a browser, and confirm each response matches the specs
+- [x] 5.1 Run DevPlane with `./gradlew bootRun`, register `orders-api`, download its project with curl, unzip it, and run the unzipped project's own build (`gradlew.bat build` on Windows); also download it from `/swagger-ui.html` in a browser, and confirm each response matches the specs
 - [ ] 5.2 Run `./gradlew build` in DevPlane, confirm CI passes, then tick "Service creation workflow" in the README roadmap
 
 ## Workflow follow-up
