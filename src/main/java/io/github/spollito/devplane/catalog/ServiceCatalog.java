@@ -12,10 +12,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/** The catalog's business rules: registering services and keeping their details. */
+/**
+ * The catalog's business rules: registering services and keeping their details.
+ * <p>
+ * Other features read services through {@link #lookUp}. Every other method stays
+ * package-private, so only the catalog changes services.
+ */
 @Service
 @Transactional
-class ServiceCatalog {
+public class ServiceCatalog {
 
 	/** PostgreSQL's SQLSTATE for a unique constraint violation. */
 	private static final String UNIQUE_VIOLATION = "23505";
@@ -56,6 +61,16 @@ class ServiceCatalog {
 	@Transactional(readOnly = true)
 	ServiceEntity get(String name) {
 		return repository.findByName(name).orElseThrow(() -> new ServiceNotFoundException(name));
+	}
+
+	/**
+	 * Returns the service with the given name, for other DevPlane features.
+	 * @throws ServiceNotFoundException if no service has this name, which the API
+	 * renders as 404 wherever it's thrown
+	 */
+	@Transactional(readOnly = true)
+	public RegisteredService lookUp(String name) {
+		return RegisteredService.from(get(name));
 	}
 
 	/** Lists services one page at a time, optionally only those with the given owner. */

@@ -2,7 +2,7 @@
 
 ## 1. Catalog lookup
 
-- [ ] 1.1 Make `ServiceCatalog` public and add `lookUp(name)`, which returns a new public `RegisteredService` record (`name`, `owner`, `description`) and throws `ServiceNotFoundException` for an unknown name, keeping its other methods, `ServiceEntity`, and the repository package-private; verify with an integration test that looks up a registered service and an unknown one, and describe the lookup in docs/architecture.md
+- [x] 1.1 Make `ServiceCatalog` public and add `lookUp(name)`, which returns a new public `RegisteredService` record (`name`, `owner`, `description`) and throws `ServiceNotFoundException` for an unknown name, keeping its other methods, `ServiceEntity`, and the repository package-private; verify with an integration test that looks up a registered service and an unknown one, and describe the lookup in docs/architecture.md
 
 ## 2. Template list
 
