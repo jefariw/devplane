@@ -22,7 +22,7 @@
 ## 5. Integration checks
 
 - [x] 5.1 Run DevPlane with `./gradlew bootRun`, register `orders-api`, download its project with curl, unzip it, and run the unzipped project's own build (`gradlew.bat build` on Windows); also download it from `/swagger-ui.html` in a browser, and confirm each response matches the specs
-- [ ] 5.2 Run `./gradlew build` in DevPlane, confirm CI passes, then tick "Service creation workflow" in the README roadmap
+- [x] 5.2 Run `./gradlew build` in DevPlane, confirm CI passes, then tick "Service creation workflow" in the README roadmap
 
 ## Workflow follow-up
 
