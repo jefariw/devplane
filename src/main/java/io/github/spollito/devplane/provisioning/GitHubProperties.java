@@ -16,8 +16,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("devplane.github")
 record GitHubProperties(@Nullable String token, URI apiUrl) {
 
+	/**
+	 * Strips whitespace around the token, such as the line break that copying it
+	 * often adds. No token contains whitespace, and an HTTP header can't hold a
+	 * line break.
+	 */
+	GitHubProperties {
+		token = (token != null) ? token.strip() : null;
+	}
+
 	boolean hasToken() {
-		return token != null && !token.isBlank();
+		return token != null && !token.isEmpty();
 	}
 
 	/** Leaves the token out, so that logging these properties never leaks it. */

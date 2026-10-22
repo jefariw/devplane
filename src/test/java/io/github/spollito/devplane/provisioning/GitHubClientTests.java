@@ -114,6 +114,30 @@ class GitHubClientTests {
 	}
 
 	@Test
+	void sendsATokenCopiedWithATrailingLineBreak() {
+		GitHubClient client = new GitHubClient(new GitHubProperties(FakeGitHub.TOKEN + "\n", gitHub.url()));
+
+		client.createRepository("orders-api", null, true);
+
+		assertThat(gitHub.requests().getFirst().headers()).containsEntry("authorization", "Bearer " + FakeGitHub.TOKEN);
+	}
+
+	@Test
+	void reportsATokenThatCannotBeSentWithoutLoggingIt(CapturedOutput output) {
+		GitHubClient client = new GitHubClient(new GitHubProperties("github_pat_one\nline-two-31c7", gitHub.url()));
+
+		assertThatExceptionOfType(GitHubException.class)
+			.isThrownBy(() -> client.createRepository("orders-api", null, true))
+			.satisfies(ex -> {
+				assertThat(ex.getStatusCode()).isEqualTo(HttpStatus.BAD_GATEWAY);
+				assertThat(ex.getBody().getDetail()).contains("DEVPLANE_GITHUB_TOKEN").doesNotContain("31c7");
+				assertThat(ex.getCause()).isNull();
+			});
+		assertThat(gitHub.requests()).isEmpty();
+		assertThat(output).contains("Could not send the GitHub token").doesNotContain("github_pat_one", "31c7");
+	}
+
+	@Test
 	void reportsAServerErrorInItsOwnWords() {
 		gitHub.respondWith(500, """
 				{"message": "Internal details that must not leak"}

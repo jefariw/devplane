@@ -41,6 +41,13 @@ class GitHubPropertiesTests {
 	}
 
 	@Test
+	void stripsWhitespaceAroundTheToken() {
+		assertThat(new GitHubProperties(" github_pat_example\r\n", URI.create("https://api.github.com")).token())
+			.isEqualTo("github_pat_example");
+		assertThat(new GitHubProperties("\n", URI.create("https://api.github.com")).hasToken()).isFalse();
+	}
+
+	@Test
 	void leavesTheTokenOutOfToString() {
 		GitHubProperties properties = new GitHubProperties("github_pat_example", URI.create("https://api.github.com"));
 

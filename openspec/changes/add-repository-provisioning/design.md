@@ -151,6 +151,10 @@ The client sets a 10-second connect timeout and a 30-second read timeout.
     extra code.
   - `api-url` defaults to `https://api.github.com` in `application.properties`.
   - The properties record overrides `toString()` so the token is never printed.
+  - The record strips whitespace around the token, because copying a token often
+    adds a line break. The JDK's HTTP client rejects a header value that still
+    can't be sent, and its error message quotes the value. The client therefore
+    turns that error into a 502 without logging it or keeping it as the cause.
 - The client builds its own `RestClient` from `RestClient.builder()`, because only
   the `spring-web` classes are needed.
 - The GitHub API library `org.kohsuke:github-api` was rejected: a large dependency

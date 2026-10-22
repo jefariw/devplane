@@ -74,6 +74,14 @@ class GitHubClient {
 			log.warn("Could not reach GitHub at {} to create repository {}", properties.apiUrl(), name, ex);
 			throw new GitHubException("Could not reach GitHub to create the repository.", ex);
 		}
+		catch (IllegalArgumentException ex) {
+			// The HTTP client rejects a header value with characters such as a line break,
+			// and its message quotes the value, token included, so the exception is
+			// neither logged nor kept as the cause.
+			log.warn("Could not send the GitHub token: it contains characters that aren't allowed in an HTTP header");
+			throw new GitHubException("The GitHub token contains characters that can't be sent to GitHub."
+					+ " Check DEVPLANE_GITHUB_TOKEN.", null);
+		}
 	}
 
 	private CreatedRepository handle(String name, ConvertibleClientHttpResponse response) throws IOException {
