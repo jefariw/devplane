@@ -86,3 +86,11 @@ The templates the Platform API offers are listed in code, in `ServiceTemplates`,
 each with a name and a short description, and `GET /api/v1/templates` returns that
 list. Test-only templates sit in the same `service-templates/` classpath folder
 during tests, but the API never offers them because they aren't listed.
+
+`ProjectArchiver` packages a generated project as a zip archive, in a folder named
+after the service. It opens the JDK's zip file system on a temporary file, with
+POSIX file attributes enabled, and points the generator at a folder inside it, so
+the generator writes into the archive through the same `Files` calls it uses for a
+directory. Making `gradlew` executable becomes that entry's Unix mode, so the
+project still builds after it's unzipped on Linux or macOS. The temporary file is
+deleted once the archive has been read into memory.
