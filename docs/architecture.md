@@ -81,3 +81,8 @@ a template into an empty directory for a service name, owner, and description:
 The only template so far is `java-rest-api`. Because DevPlane doesn't compile
 template files, the `templateTest` Gradle task generates a project from it and
 runs that project's own build.
+
+The templates the Platform API offers are listed in code, in `ServiceTemplates`,
+each with a name and a short description, and `GET /api/v1/templates` returns that
+list. Test-only templates sit in the same `service-templates/` classpath folder
+during tests, but the API never offers them because they aren't listed.
