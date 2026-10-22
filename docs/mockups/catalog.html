@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Services · DevPlane</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600&family=Atkinson+Hyperlegible+Mono:wght@400&display=swap">
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body:not([data-state="list"]) .when-list,
+		body:not([data-state="empty"]) .when-empty,
+		body:not([data-state="no-match"]) .when-no-match,
+		body[data-state="empty"] .filter,
+		body[data-state="empty"] .page-header .button { display: none; }
+		.empty { display: grid; gap: var(--space-3); justify-items: start; padding: var(--space-6) var(--space-5); border: 1px solid var(--line); }
+	</style>
+</head>
+<body data-state="list">
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<header class="topbar">
+		<div class="topbar__inner">
+			<a class="wordmark" href="catalog.html">
+				<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5 16 6 9 9.5 2 6Z"/><path d="M2 9 9 12.5 16 9"/><path d="M2 12 9 15.5 16 12"/></svg>
+				DevPlane
+			</a>
+			<nav class="nav" aria-label="Main">
+				<a href="catalog.html" aria-current="page">Services</a>
+			</nav>
+			<nav class="nav nav--end" aria-label="Documentation">
+				<a href="/swagger-ui.html">API docs</a>
+			</nav>
+		</div>
+	</header>
+
+	<main id="main" class="page">
+		<div class="page-header">
+			<div class="page-header__text">
+				<h1>Services</h1>
+			</div>
+			<a class="button button--primary" href="#register">Register service</a>
+		</div>
+
+		<form class="filter" action="catalog.html" role="search">
+			<label class="field__label" for="owner">Owner</label>
+			<input class="input id" id="owner" name="owner" type="text" autocomplete="off" spellcheck="false">
+			<button class="button" type="submit">Filter</button>
+		</form>
+
+		<div class="when-list">
+			<table class="table">
+				<caption class="visually-hidden">Registered services</caption>
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col" class="cell-description">Description</th>
+						<th scope="col" class="cell-owner">Owner</th>
+						<th scope="col">Lifecycle</th>
+						<th scope="col" class="cell-repository">Repository</th>
+						<th scope="col" class="cell-updated">Updated</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a class="id" href="service.html?name=auth-service">auth-service</a><div class="table__owner-below small muted id">identity-team</div></td>
+						<td class="cell-description" title="Sign-in, sessions, and access tokens">Sign-in, sessions, and access tokens</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=identity-team">identity-team</a></td>
+						<td><span class="lifecycle lifecycle--production"><svg viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" fill="currentColor"/></svg>Production</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/auth-service">spollito/auth-service</a></td>
+						<td class="cell-updated muted"><time datetime="2026-10-19T10:02:00Z" title="Oct 19, 2026, 10:02">3 days ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">billing-api</a><div class="table__owner-below small muted id">payments-team</div></td>
+						<td class="cell-description" title="Invoices, credit notes, and stored payment methods">Invoices, credit notes, and stored payment methods</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=payments-team">payments-team</a></td>
+						<td><span class="lifecycle lifecycle--production"><svg viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" fill="currentColor"/></svg>Production</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/billing-api">spollito/billing-api</a></td>
+						<td class="cell-updated muted"><time datetime="2026-10-15T08:30:00Z" title="Oct 15, 2026, 08:30">1 week ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">catalog-search</a><div class="table__owner-below small muted id">search-team</div></td>
+						<td class="cell-description" title="Full-text search over the product catalog">Full-text search over the product catalog</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=search-team">search-team</a></td>
+						<td><span class="lifecycle lifecycle--experimental"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Experimental</span></td>
+						<td class="cell-repository muted">None</td>
+						<td class="cell-updated muted"><time datetime="2026-10-22T09:12:00Z" title="Oct 22, 2026, 09:12">5 hours ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">email-sender</a><div class="table__owner-below small muted id">platform-team</div></td>
+						<td class="cell-description" title="Queues and sends transactional email">Queues and sends transactional email</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=platform-team">platform-team</a></td>
+						<td><span class="lifecycle lifecycle--deprecated"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M1.5 8.5 8.5 1.5" stroke="currentColor" stroke-width="1.5"/></svg>Deprecated</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/email-sender">spollito/email-sender</a></td>
+						<td class="cell-updated muted"><time datetime="2026-08-20T14:00:00Z" title="Aug 20, 2026, 14:00">2 months ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">inventory-api</a><div class="table__owner-below small muted id">warehouse-team</div></td>
+						<td class="cell-description" title="Stock levels for each warehouse">Stock levels for each warehouse</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=warehouse-team">warehouse-team</a></td>
+						<td><span class="lifecycle lifecycle--experimental"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Experimental</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/inventory-api">spollito/inventory-api</a></td>
+						<td class="cell-updated muted"><time datetime="2026-10-21T16:45:00Z" title="Oct 21, 2026, 16:45">Yesterday</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">legacy-reports</a><div class="table__owner-below small muted id">payments-team</div></td>
+						<td class="cell-description" title="Nightly CSV reports. Replaced by exports in billing-api.">Nightly CSV reports. Replaced by exports in billing-api.</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=payments-team">payments-team</a></td>
+						<td><span class="lifecycle lifecycle--deprecated"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M1.5 8.5 8.5 1.5" stroke="currentColor" stroke-width="1.5"/></svg>Deprecated</span></td>
+						<td class="cell-repository muted">None</td>
+						<td class="cell-updated muted"><time datetime="2026-06-30T11:00:00Z" title="Jun 30, 2026, 11:00">4 months ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">notifications</a><div class="table__owner-below small muted id">platform-team</div></td>
+						<td class="cell-description" title="Push and in-app notifications">Push and in-app notifications</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=platform-team">platform-team</a></td>
+						<td><span class="lifecycle lifecycle--production"><svg viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" fill="currentColor"/></svg>Production</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/notifications">spollito/notifications</a></td>
+						<td class="cell-updated muted"><time datetime="2026-10-08T13:20:00Z" title="Oct 8, 2026, 13:20">2 weeks ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">orders-api</a><div class="table__owner-below small muted id">payments-team</div></td>
+						<td class="cell-description" title="Order management REST API">Order management REST API</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=payments-team">payments-team</a></td>
+						<td><span class="lifecycle lifecycle--experimental"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Experimental</span></td>
+						<td class="cell-repository muted">None</td>
+						<td class="cell-updated muted"><time datetime="2026-10-21T16:40:00Z" title="Oct 21, 2026, 16:40">Yesterday</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">payments-api</a><div class="table__owner-below small muted id">payments-team</div></td>
+						<td class="cell-description" title="Card payments through the payment provider">Card payments through the payment provider</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=payments-team">payments-team</a></td>
+						<td><span class="lifecycle lifecycle--production"><svg viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" fill="currentColor"/></svg>Production</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/payments-api">spollito/payments-api</a></td>
+						<td class="cell-updated muted"><time datetime="2026-10-12T09:00:00Z" title="Oct 12, 2026, 09:00">10 days ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">shipping-rates</a><div class="table__owner-below small muted id">warehouse-team</div></td>
+						<td class="cell-description muted">No description</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=warehouse-team">warehouse-team</a></td>
+						<td><span class="lifecycle lifecycle--experimental"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Experimental</span></td>
+						<td class="cell-repository muted">None</td>
+						<td class="cell-updated muted"><time datetime="2026-10-22T13:05:00Z" title="Oct 22, 2026, 13:05">1 hour ago</time></td>
+					</tr>
+					<tr>
+						<td><a class="id" href="service.html">user-profiles</a><div class="table__owner-below small muted id">identity-team</div></td>
+						<td class="cell-description" title="Profile data and account preferences">Profile data and account preferences</td>
+						<td class="cell-owner"><a class="secondary-link id" href="?owner=identity-team">identity-team</a></td>
+						<td><span class="lifecycle lifecycle--production"><svg viewBox="0 0 10 10" aria-hidden="true"><rect width="10" height="10" fill="currentColor"/></svg>Production</span></td>
+						<td class="cell-repository"><a class="secondary-link id" href="https://github.com/spollito/user-profiles">spollito/user-profiles</a></td>
+						<td class="cell-updated muted"><time datetime="2026-09-29T15:10:00Z" title="Sep 29, 2026, 15:10">3 weeks ago</time></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="table-footer">
+				<p class="muted">11 services</p>
+			</div>
+		</div>
+
+		<section class="intro when-empty" aria-labelledby="intro-heading">
+			<div class="intro__text">
+				<h2 id="intro-heading">No services are registered yet</h2>
+				<p class="muted">DevPlane keeps track of your services and who owns them, and gives each one a starting project and a GitHub repository.</p>
+			</div>
+			<ol class="path path--even">
+				<li class="step step--next">
+					<svg class="step__outline" aria-hidden="true"><rect/></svg>
+					<div class="step__head">
+						<h3>Catalog entry</h3>
+						<p class="step__status">Register the service with its name, owner, and lifecycle stage.</p>
+					</div>
+					<div class="step__actions">
+						<a class="button button--primary" href="#register">Register service</a>
+					</div>
+				</li>
+				<li class="step step--later">
+					<div class="step__head">
+						<h3>Project</h3>
+						<p class="step__status">Download a project generated from <span class="id">java-rest-api</span>, a Spring Boot (Java 21) REST API with PostgreSQL.</p>
+					</div>
+				</li>
+				<li class="step step--later">
+					<div class="step__head">
+						<h3>Repository</h3>
+						<p class="step__status">DevPlane creates a GitHub repository and pushes the project as its first commit. This needs a GitHub token.</p>
+					</div>
+				</li>
+			</ol>
+		</section>
+
+		<div class="empty when-no-match">
+			<p><span class="id">billing-team</span> owns no services.</p>
+			<a href="catalog.html">Show all services</a>
+		</div>
+	</main>
+
+	<script>
+		const state = new URLSearchParams(location.search).get('state');
+		if (state) document.body.dataset.state = state;
+		if (state === 'no-match') document.getElementById('owner').value = 'billing-team';
+	</script>
+</body>
+</html>

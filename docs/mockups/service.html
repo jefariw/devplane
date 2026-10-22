@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>orders-api · DevPlane</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600&family=Atkinson+Hyperlegible+Mono:wght@400&display=swap">
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* Mockup only: ?state=new|creating|error|created picks what the repository step shows. */
+		body:not([data-state="created"]) .when-created,
+		body[data-state="created"] .when-not-created,
+		body:not([data-state="error"]) .when-error { display: none; }
+	</style>
+</head>
+<body data-state="new">
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<header class="topbar">
+		<div class="topbar__inner">
+			<a class="wordmark" href="catalog.html">
+				<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2.5 16 6 9 9.5 2 6Z"/><path d="M2 9 9 12.5 16 9"/><path d="M2 12 9 15.5 16 12"/></svg>
+				DevPlane
+			</a>
+			<nav class="nav" aria-label="Main">
+				<a href="catalog.html">Services</a>
+			</nav>
+			<nav class="nav nav--end" aria-label="Documentation">
+				<a href="/swagger-ui.html">API docs</a>
+			</nav>
+		</div>
+	</header>
+
+	<main id="main" class="page">
+		<div class="notice notice--success when-created" role="status">
+			<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+			<p>Created repository <span class="id">spollito/orders-api</span>.</p>
+		</div>
+
+		<nav class="breadcrumbs" aria-label="Breadcrumbs">
+			<ol>
+				<li><a href="catalog.html">Services</a></li>
+				<li><span class="id" aria-current="page">orders-api</span></li>
+			</ol>
+		</nav>
+
+		<div class="page-header">
+			<div class="page-header__text">
+				<h1><span class="id">orders-api</span></h1>
+				<p class="muted">Order management REST API</p>
+			</div>
+		</div>
+
+		<dl class="summary">
+			<div>
+				<dt>Owner</dt>
+				<dd><a class="secondary-link id" href="catalog.html?owner=payments-team">payments-team</a></dd>
+			</div>
+			<div>
+				<dt>Lifecycle</dt>
+				<dd><span class="lifecycle lifecycle--experimental"><svg viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>Experimental</span></dd>
+			</div>
+			<div>
+				<dt>Registered</dt>
+				<dd><time datetime="2026-10-14T09:12:00Z">Oct 14, 2026, 09:12</time></dd>
+			</div>
+			<div>
+				<dt>Updated</dt>
+				<dd>
+					<time class="when-not-created" datetime="2026-10-21T16:40:00Z">Oct 21, 2026, 16:40</time>
+					<time class="when-created" datetime="2026-10-22T15:02:00Z">Oct 22, 2026, 15:02</time>
+				</dd>
+			</div>
+		</dl>
+
+		<section class="section" aria-labelledby="code-heading">
+			<h2 id="code-heading">Code</h2>
+			<ol class="path">
+				<li class="step">
+					<div class="step__head">
+						<h3>Catalog entry</h3>
+						<p class="step__status">Registered Oct 14, 2026</p>
+					</div>
+				</li>
+
+				<li class="step">
+					<div class="step__head">
+						<h3>Project</h3>
+						<p class="step__status">Generated from <span class="id">java-rest-api</span> each time you download it. DevPlane doesn't keep a copy.</p>
+					</div>
+					<div class="step__actions">
+						<a class="button" href="/api/v1/services/orders-api/project?template=java-rest-api" download>
+							<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+							Download project
+						</a>
+						<span class="small muted id">orders-api.zip</span>
+					</div>
+				</li>
+
+				<!-- Repository: not created yet (new, creating, error) -->
+				<li class="step step--next when-not-created" id="repository-step">
+					<svg class="step__outline" aria-hidden="true"><rect/></svg>
+					<div class="step__head">
+						<h3>Repository</h3>
+						<p class="step__status">Not created yet. DevPlane creates it on GitHub and pushes the project as the first commit.</p>
+					</div>
+
+					<div class="notice notice--error when-error" role="alert">
+						<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+						<div class="notice__body">
+							<p><strong>Couldn't create the repository</strong></p>
+							<p>GitHub isn't configured. Set <span class="id">DEVPLANE_GITHUB_TOKEN</span> to a fine-grained personal access token and restart DevPlane.</p>
+							<p><a href="https://github.com/spollito/devplane#push-it-to-github">How to create the token</a></p>
+						</div>
+					</div>
+
+					<form class="step__options" action="/services/orders-api/repository" method="post">
+						<fieldset class="field">
+							<legend class="field__label">Visibility</legend>
+							<label class="choice">
+								<input type="radio" name="visibility" value="private" checked>
+								<span>Private</span>
+								<span class="choice__hint">Only you and the people you invite on GitHub can see it.</span>
+							</label>
+							<label class="choice">
+								<input type="radio" name="visibility" value="public">
+								<span>Public</span>
+								<span class="choice__hint">Anyone on the internet can see it.</span>
+							</label>
+						</fieldset>
+						<dl class="facts">
+							<dt>Template</dt>
+							<dd class="id">java-rest-api</dd>
+							<dt>Name</dt>
+							<dd class="id">orders-api</dd>
+						</dl>
+						<div class="step__actions">
+							<button class="button button--primary" type="submit" id="create-button">Create repository</button>
+						</div>
+					</form>
+				</li>
+
+				<!-- Repository: created -->
+				<li class="step when-created">
+					<div class="step__head">
+						<h3>Repository</h3>
+						<p class="step__status">Created Oct 22, 2026, 15:02 from <span class="id">java-rest-api</span></p>
+					</div>
+					<a class="repo-link id" href="https://github.com/spollito/orders-api">
+						github.com/spollito/orders-api
+						<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+					</a>
+				</li>
+			</ol>
+		</section>
+
+		<section class="section unregister" aria-labelledby="unregister-heading">
+			<div class="unregister__text">
+				<h2 id="unregister-heading">Unregister</h2>
+				<p class="muted when-not-created">Removes <span class="id">orders-api</span> from the catalog.</p>
+				<p class="muted when-created">Removes <span class="id">orders-api</span> from the catalog. Its repository <span class="id">spollito/orders-api</span> stays on GitHub.</p>
+			</div>
+			<a class="button button--danger" href="#unregister">Unregister service</a>
+		</section>
+	</main>
+
+	<script>
+		const state = new URLSearchParams(location.search).get('state') || 'new';
+		document.body.dataset.state = state;
+		if (state === 'creating') {
+			document.getElementById('repository-step').setAttribute('aria-busy', 'true');
+			document.querySelector('#repository-step .step__status').textContent =
+				'Creating the repository on GitHub and pushing the project. This takes a few seconds.';
+			document.querySelector('#repository-step fieldset').disabled = true;
+			const button = document.getElementById('create-button');
+			button.textContent = 'Creating repository…';
+			button.setAttribute('aria-disabled', 'true');
+		}
+	</script>
+</body>
+</html>

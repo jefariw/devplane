@@ -40,3 +40,6 @@ out/
 
 ### Claude Code (per-user settings) ###
 .claude/settings.local.json
+
+### Playwright MCP (screenshots and page snapshots) ###
+.playwright-mcp/

@@ -22,6 +22,9 @@ context: |
   Roadmap phases are built in order. Do not add later-phase behavior to an earlier
   change; record it as future work instead.
 
+  Web UI pages and the public site follow docs/ui-guidelines.md, and the approved
+  mockups in docs/mockups/ show how they look.
+
 # Per-artifact rules: added on top of the spec-driven schema's own instructions.
 rules:
   proposal:
@@ -34,9 +37,11 @@ rules:
   design:
     - Justify every new dependency or piece of infrastructure, and prefer the simplest option that satisfies the specs.
     - Name any later roadmap item this design must not block, without designing for it now.
+    - When the change adds or changes a web page, follow docs/ui-guidelines.md, and list any design value or component it adds to the guidelines.
   tasks:
     - Keep each task to roughly two hours of work or less.
     - When the change completes a README roadmap item, include a task to tick its checkbox.
+    - When the change adds or changes a web page, include a task for the screenshot check in docs/ui-guidelines.md, at 1280px and 390px, covering every state the change touches.
 
 # Per-operation guidance for the apply and archive workflows.
 operations:
