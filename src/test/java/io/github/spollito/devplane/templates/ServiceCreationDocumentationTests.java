@@ -24,4 +24,19 @@ class ServiceCreationDocumentationTests {
 		assertThat(result).bodyJson().extractingPath("$.components.schemas").asMap().containsKey("ServiceTemplate");
 	}
 
+	@Test
+	void documentsTheProjectDownload() {
+		MvcTestResult result = mvc.get().uri("/v3/api-docs").exchange();
+
+		assertThat(result).hasStatusOk();
+		assertThat(result).bodyJson()
+			.extractingPath("$.paths['/api/v1/services/{name}/project'].get.parameters[*].name")
+			.asArray()
+			.containsExactlyInAnyOrder("name", "template");
+		assertThat(result).bodyJson()
+			.extractingPath("$.paths['/api/v1/services/{name}/project'].get.responses['200'].content")
+			.asMap()
+			.containsOnlyKeys("application/zip");
+	}
+
 }

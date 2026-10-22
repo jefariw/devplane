@@ -98,6 +98,31 @@ http://localhost:8080/swagger-ui.html.
 `build/generated-projects/orders-api`, so you can open it, or run it with
 `./gradlew bootRun` from that directory.
 
+## Creating a Service
+
+With DevPlane running, register a service in the catalog, then download the
+project DevPlane generates for it:
+
+```sh
+# Register the service
+curl -X POST http://localhost:8080/api/v1/services \
+  -H "Content-Type: application/json" \
+  -d '{"name": "orders-api", "owner": "payments-team", "description": "Order management REST API"}'
+
+# List the templates you can generate from
+curl http://localhost:8080/api/v1/templates
+
+# Download the generated project, then build it
+curl -o orders-api.zip http://localhost:8080/api/v1/services/orders-api/project
+unzip orders-api.zip
+cd orders-api
+./gradlew build
+```
+
+The project comes from the `java-rest-api` template unless you add
+`?template=<name>` to the download. Each download generates the project from the
+service's current details, and DevPlane keeps no copy of it.
+
 ## Development Workflow
 
 DevPlane is built with spec-driven development using
