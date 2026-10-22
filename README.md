@@ -41,7 +41,7 @@ Items marked *stretch* are optional extras once the rest of their phase works.
 - [x] Service catalog: services with an owner and a lifecycle stage
 - [x] Platform API: versioned REST API with OpenAPI docs
 - [x] Golden-path service template: Java REST API with PostgreSQL
-- [ ] Service creation workflow: generate a new service from the template
+- [x] Service creation workflow: generate a new service from the template
 - [ ] Repository provisioning: push the generated service to a new GitHub repository
 - [ ] Web UI for browsing the catalog and creating services
 
@@ -98,6 +98,31 @@ http://localhost:8080/swagger-ui.html.
 `build/generated-projects/orders-api`, so you can open it, or run it with
 `./gradlew bootRun` from that directory.
 
+## Creating a Service
+
+With DevPlane running, register a service in the catalog, then download the
+project DevPlane generates for it:
+
+```sh
+# Register the service
+curl -X POST http://localhost:8080/api/v1/services \
+  -H "Content-Type: application/json" \
+  -d '{"name": "orders-api", "owner": "payments-team", "description": "Order management REST API"}'
+
+# List the templates you can generate from
+curl http://localhost:8080/api/v1/templates
+
+# Download the generated project, then build it
+curl -o orders-api.zip http://localhost:8080/api/v1/services/orders-api/project
+unzip orders-api.zip
+cd orders-api
+./gradlew build
+```
+
+The project comes from the `java-rest-api` template unless you add
+`?template=<name>` to the download. Each download generates the project from the
+service's current details, and DevPlane keeps no copy of it.
+
 ## Development Workflow
 
 DevPlane is built with spec-driven development using
@@ -122,10 +147,11 @@ Fixes that don't change behavior, such as typos, dependency bumps, and
 refactors, skip the proposal. CI validates every spec and change on each push
 and pull request.
 
-To browse specs and changes locally, install the OpenSpec CLI (Node.js 20.19+):
+To browse specs and changes locally, install the OpenSpec CLI (Node.js 20.19+),
+at the version CI uses:
 
 ```sh
-npm install -g @fission-ai/openspec@latest
+npm install -g @fission-ai/openspec@1.14.1
 openspec list     # changes in progress
 openspec view     # interactive dashboard
 ```

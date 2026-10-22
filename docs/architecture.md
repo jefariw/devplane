@@ -30,13 +30,21 @@ io.github.spollito.devplane
 ├── api/        behavior shared by every endpoint: problem details error responses
 ├── catalog/    the service catalog: REST controller, request and response records,
 │               ServiceCatalog (business rules), ServiceEntity and its repository
-└── templates/  ProjectGenerator, which generates new service projects from templates
+└── templates/  service templates: ProjectGenerator, which generates new service
+                projects, ProjectArchiver, which zips them, and the endpoints that
+                list templates and download a service's project
 ```
 
 A request flows from the controller, which validates its body, to
 `ServiceCatalog`, then through a Spring Data JPA repository to PostgreSQL.
 Every error becomes an RFC 9457 problem details response in
 `api/ApiExceptionHandler`.
+
+Other features read the catalog through `ServiceCatalog.lookUp(name)`, which
+returns a read-only `RegisteredService` (name, owner, and description) and throws
+a 404 error for an unknown name. Everything else in the `catalog` package,
+including the JPA entity, stays package-private, so only the catalog changes
+services.
 
 The API is described at `/v3/api-docs` (browsable at `/swagger-ui.html`), and
 `/actuator/health` reports whether the application can reach its database.
@@ -75,3 +83,23 @@ a template into an empty directory for a service name, owner, and description:
 The only template so far is `java-rest-api`. Because DevPlane doesn't compile
 template files, the `templateTest` Gradle task generates a project from it and
 runs that project's own build.
+
+The templates the Platform API offers are listed in code, in `ServiceTemplates`,
+each with a name and a short description, and `GET /api/v1/templates` returns that
+list. Test-only templates sit in the same `service-templates/` classpath folder
+during tests, but the API never offers them because they aren't listed.
+
+`ProjectArchiver` packages a generated project as a zip archive, in a folder named
+after the service. It opens the JDK's zip file system on a temporary file, with
+POSIX file attributes enabled, and points the generator at a folder inside it, so
+the generator writes into the archive through the same `Files` calls it uses for a
+directory. Making `gradlew` executable becomes that entry's Unix mode, so the
+project still builds after it's unzipped on Linux or macOS. The temporary file is
+deleted once the archive has been read into memory.
+
+`GET /api/v1/services/{name}/project` ties these together. It checks that the
+requested template (`java-rest-api` by default) is listed, looks the service up
+with `ServiceCatalog.lookUp`, and returns the archive as `<name>.zip`. Nothing is
+stored: every request generates the project from the service's current details.
+The endpoint lives in the `templates` package even though its path is under the
+service, so that `templates` depends on `catalog` and never the reverse.
