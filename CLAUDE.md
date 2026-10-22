@@ -28,6 +28,8 @@ Docker must be running for tests and `bootRun`.
   reference.
 - A change to a page is done only after the screenshot check in the guidelines:
   Playwright screenshots at 1280px and 390px, checked against the guidelines.
+  The Playwright MCP server is configured in `.mcp.json`. It needs Node 20+, and
+  it saves screenshots to `.playwright-mcp/`, which Git ignores.
 
 ## Spec-driven development with OpenSpec
 
@@ -49,3 +51,12 @@ Rules:
   wrong, update the artifacts (`/opsx:update`) before writing more code.
 - After editing anything under `openspec/`, run `openspec validate --all --strict`.
   CI runs the same check.
+
+## Git
+
+- Commits are authored by the person running Claude Code. Commit messages and
+  pull request descriptions have no `Co-Authored-By` trailer and no "Generated
+  with Claude Code" footer.
+- Work on a branch named after the change (for example `add-web-ui`), and open a
+  pull request. The repository owner merges pull requests.
+- Commit or push only when asked.
