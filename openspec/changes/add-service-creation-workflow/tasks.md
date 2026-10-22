@@ -11,7 +11,7 @@
 
 ## 3. Project archive
 
-- [ ] 3.1 Add `ProjectArchiver`, which opens a zip file system on a temporary file with POSIX attributes enabled and default permissions `rw-r--r--`, generates the project into a `<service-name>/` folder inside it with the existing `ProjectGenerator`, and returns the archive's bytes, deleting its temporary files; verify with unit tests that the archive holds the same paths and bytes as generating into a directory, that `gradlew` is executable in the archive, and that no temporary files are left behind, including when generation fails; describe the archiver in docs/architecture.md
+- [x] 3.1 Add `ProjectArchiver`, which opens a zip file system on a temporary file with POSIX attributes enabled and default permissions `rw-r--r--`, generates the project into a `<service-name>/` folder inside it with the existing `ProjectGenerator`, and returns the archive's bytes, deleting its temporary files; verify with unit tests that the archive holds the same paths and bytes as generating into a directory, that `gradlew` is executable in the archive, and that no temporary files are left behind, including when generation fails; describe the archiver in docs/architecture.md
 
 ## 4. Download endpoint
 
