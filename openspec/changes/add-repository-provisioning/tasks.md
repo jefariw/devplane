@@ -16,7 +16,7 @@
 
 ## 4. Git push
 
-- [ ] 4.1 Add the pinned JGit dependency (`org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r`) and `ProjectPusher`, which initializes `main`, stages every file with `gradlew` staged as `100755`, commits as the token owner's no-reply address with `core.autocrlf=false`, no signing, and no hooks, pushes with the credentials provider, and checks each ref update; verify by pushing a generated project to a local bare repository and cloning it back, checking one commit with the expected message and author, files identical to the generated directory, `gradlew` mode `100755` even when the working file isn't executable, and an exception when the push is rejected or the remote doesn't exist
+- [x] 4.1 Add the pinned JGit dependency (`org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r`) and `ProjectPusher`, which initializes `main`, stages every file with `gradlew` staged as `100755`, commits as the token owner's no-reply address with `core.autocrlf=false`, no signing, and no hooks, pushes with the credentials provider, and checks each ref update; verify by pushing a generated project to a local bare repository and cloning it back, checking one commit with the expected message and author, files identical to the generated directory, `gradlew` mode `100755` even when the working file isn't executable, and an exception when the push is rejected or the remote doesn't exist
 
 ## 5. Provisioning endpoint
 
