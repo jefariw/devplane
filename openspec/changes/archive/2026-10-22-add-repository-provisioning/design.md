@@ -178,13 +178,19 @@ The client sets a 10-second connect timeout and a 30-second read timeout.
    put in the URL or the repository's configuration.
 4. Checks every remote ref update in the push result. JGit reports a rejected
    push in the result rather than throwing, so a rejection must be checked for
-   explicitly.
+   explicitly. `OK` and `UP_TO_DATE` count as success. `UP_TO_DATE` means the
+   remote already has exactly this commit.
 
 The developer's Git configuration must not change the commit. The repository is
 configured with `core.autocrlf=false`, and the commit is made unsigned
 (`setSign(false)`) and without hooks (`setNoVerify(true)`). Otherwise
 `commit.gpgsign` or `core.hooksPath` from `~/.gitconfig` could fail the push or
-alter it.
+alter it. The repository's own `core.hooksPath` also points at its empty
+`.git/hooks` folder. `setNoVerify` skips only some hooks, while this override
+shuts out global hooks of every kind, including post-commit and pre-push.
+
+`ProjectGenerator`'s constructor is public, so that tests in the `provisioning`
+package can generate the projects they push.
 
 **Dependency:** `org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r`.
 
