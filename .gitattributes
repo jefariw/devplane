@@ -1,3 +1,6 @@
+# Check out text files with LF on every OS, so tests that compare file contents
+# pass on Windows too. Later lines override this one.
+* text=auto eol=lf
 /gradlew text eol=lf
 *.bat text eol=crlf
 *.jar binary

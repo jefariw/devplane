@@ -122,10 +122,11 @@ Fixes that don't change behavior, such as typos, dependency bumps, and
 refactors, skip the proposal. CI validates every spec and change on each push
 and pull request.
 
-To browse specs and changes locally, install the OpenSpec CLI (Node.js 20.19+):
+To browse specs and changes locally, install the OpenSpec CLI (Node.js 20.19+),
+at the version CI uses:
 
 ```sh
-npm install -g @fission-ai/openspec@latest
+npm install -g @fission-ai/openspec@1.14.1
 openspec list     # changes in progress
 openspec view     # interactive dashboard
 ```

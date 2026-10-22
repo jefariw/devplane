@@ -43,7 +43,8 @@ class GeneratedProjectBuildTests {
 				new NewProject("orders-api", "payments-team", "Order management REST API"), PROJECT);
 
 		Path log = PROJECT.resolveSibling("orders-api-build.log");
-		Process build = new ProcessBuilder(PROJECT.resolve("gradlew").toString(), "build", "--console=plain")
+		String gradlew = System.getProperty("os.name").startsWith("Windows") ? "gradlew.bat" : "gradlew";
+		Process build = new ProcessBuilder(PROJECT.resolve(gradlew).toString(), "build", "--console=plain")
 			.directory(PROJECT.toFile())
 			.redirectErrorStream(true)
 			.redirectOutput(log.toFile())
