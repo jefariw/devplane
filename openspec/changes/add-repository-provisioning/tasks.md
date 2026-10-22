@@ -11,8 +11,8 @@
 
 ## 3. GitHub client
 
-- [ ] 3.1 Add `GitHubProperties` (`@ConfigurationProperties("devplane.github")` with `token` and `api-url`, and a `toString()` that leaves the token out) and the `api-url` default in application.properties, plus the test-only `FakeGitHub` server (JDK `HttpServer`) that records requests and creates bare repositories; verify that the `DEVPLANE_GITHUB_TOKEN` environment variable name binds to `token` (through Spring's relaxed binding) and that `toString()` doesn't contain the token
-- [ ] 3.2 Add `GitHubClient.createRepository(name, description, private)` with `RestClient`, GitHub's headers, and connect and read timeouts, plus `RepositoryNameTakenException` (409) and `GitHubException` (502); verify against `FakeGitHub` the request's path, headers, and body for private and public repositories, that a 422 "name already exists" becomes `RepositoryNameTakenException`, that 401, 500, and a refused connection become `GitHubException` with DevPlane's own detail, and that the log names GitHub's status and request id but not the token
+- [x] 3.1 Add `GitHubProperties` (`@ConfigurationProperties("devplane.github")` with `token` and `api-url`, and a `toString()` that leaves the token out) and the `api-url` default in application.properties, plus the test-only `FakeGitHub` server (JDK `HttpServer`) that records requests and creates bare repositories; verify that the `DEVPLANE_GITHUB_TOKEN` environment variable name binds to `token` (through Spring's relaxed binding) and that `toString()` doesn't contain the token
+- [x] 3.2 Add `GitHubClient.createRepository(name, description, private)` with `RestClient`, GitHub's headers, and connect and read timeouts, plus `RepositoryNameTakenException` (409) and `GitHubException` (502); verify against `FakeGitHub` the request's path, headers, and body for private and public repositories, that a 422 "name already exists" becomes `RepositoryNameTakenException`, that 401, 500, and a refused connection become `GitHubException` with DevPlane's own detail, and that the log names GitHub's status and request id but not the token
 
 ## 4. Git push
 
