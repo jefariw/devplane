@@ -28,7 +28,7 @@
 
 ## 6. Integration checks
 
-- [ ] 6.1 With a real fine-grained token, follow the README: run `./gradlew bootRun`, register `orders-api`, provision its repository with curl, and confirm on GitHub that it's private, has the service's description, and has one commit attributed to you; clone it and run its `./gradlew build`; provision a second service with `"visibility": "public"`; confirm `GET /api/v1/services/orders-api` shows the repository; then delete the test repositories on GitHub
+- [x] 6.1 With a real fine-grained token, follow the README: run `./gradlew bootRun`, register `orders-api`, provision its repository with curl, and confirm on GitHub that it's private, has the service's description, and has one commit attributed to you; clone it and run its `./gradlew build`; provision a second service with `"visibility": "public"`; confirm `GET /api/v1/services/orders-api` shows the repository; then delete the test repositories on GitHub
 - [x] 6.2 Run `./gradlew build` in DevPlane, confirm CI passes, then tick "Repository provisioning" in the README roadmap
 
 ## Workflow follow-up
