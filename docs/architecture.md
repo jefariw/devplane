@@ -41,8 +41,10 @@ Every error becomes an RFC 9457 problem details response in
 `api/ApiExceptionHandler`.
 
 Other features read the catalog through `ServiceCatalog.lookUp(name)`, which
-returns a read-only `RegisteredService` (name, owner, and description) and throws
-a 404 error for an unknown name. Everything else in the `catalog` package,
+returns a read-only `RegisteredService` (name, owner, description, and repository)
+and throws a 404 error for an unknown name. The one change they can make is
+`ServiceCatalog.recordRepository(name, url, template)`, which stores a service's
+GitHub repository once it exists. Everything else in the `catalog` package,
 including the JPA entity, stays package-private, so only the catalog changes
 services.
 
@@ -64,6 +66,7 @@ The `services` table holds the catalog:
 | `description` | `varchar(300)` | Optional |
 | `lifecycle` | `varchar(20)` | `EXPERIMENTAL`, `PRODUCTION`, or `DEPRECATED` (check constraint) |
 | `created_at`, `updated_at` | `timestamptz` | Set by the application, at microsecond precision |
+| `repository_url`, `repository_template`, `repository_created_at` | `varchar(255)`, `varchar(63)`, `timestamptz` | The service's GitHub repository and the template it was generated from; all three are null until a repository is provisioned, and a check constraint keeps them set together |
 
 ### Service Templates
 

@@ -2,6 +2,7 @@ package io.github.spollito.devplane.catalog;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URI;
 import java.time.Instant;
 import java.util.stream.IntStream;
 
@@ -22,6 +23,8 @@ import org.springframework.test.web.servlet.assertj.MvcTestResult;
 class ViewAndListServicesTests {
 
 	private static final Instant REGISTERED_AT = Instant.parse("2026-02-10T08:15:00Z");
+
+	private static final Instant PROVISIONED_AT = Instant.parse("2026-02-11T09:30:00.123456Z");
 
 	@Autowired
 	private MockMvcTester mvc;
@@ -48,9 +51,33 @@ class ViewAndListServicesTests {
 				  "description": "Order management REST API",
 				  "lifecycle": "production",
 				  "createdAt": "2026-02-10T08:15:00Z",
-				  "updatedAt": "2026-02-10T08:15:00Z"
+				  "updatedAt": "2026-02-10T08:15:00Z",
+				  "repository": null
 				}
 				""");
+	}
+
+	@Test
+	void showsAProvisionedRepository() {
+		ServiceEntity service = new ServiceEntity("orders-api", "payments-team", null, Lifecycle.EXPERIMENTAL,
+				REGISTERED_AT);
+		service.recordRepository(URI.create("https://github.com/octo-dev/orders-api"), "java-rest-api",
+				PROVISIONED_AT);
+		repository.save(service);
+		String repositoryJson = """
+				{
+				  "url": "https://github.com/octo-dev/orders-api",
+				  "template": "java-rest-api",
+				  "createdAt": "2026-02-11T09:30:00.123456Z"
+				}
+				""";
+
+		assertThat(mvc.get().uri("/api/v1/services/orders-api")).hasStatusOk().bodyJson().isLenientlyEqualTo("""
+				{"repository": %s}
+				""".formatted(repositoryJson));
+		assertThat(mvc.get().uri("/api/v1/services")).hasStatusOk().bodyJson().isLenientlyEqualTo("""
+				{"items": [{"name": "orders-api", "repository": %s}]}
+				""".formatted(repositoryJson));
 	}
 
 	@Test

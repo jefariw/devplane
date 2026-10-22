@@ -2,8 +2,8 @@
 
 ## 1. Catalog records a repository
 
-- [ ] 1.1 Add migration `V2__add_service_repository.sql` (three nullable `repository_*` columns with an all-or-none check constraint), the public `SourceRepository` record, the matching `ServiceEntity` fields, a nullable `repository` on `RegisteredService`, and the public `ServiceCatalog.recordRepository(name, url, template)`; verify with integration tests that recording returns the repository and sets `updatedAt` to its `createdAt`, that `lookUp` returns it, that an unknown service throws `ServiceNotFoundException`, that recording twice throws `IllegalStateException`, and that the database rejects a row with only some repository columns set; add the columns to docs/architecture.md
-- [ ] 1.2 Add `repository` to `ServiceResponse`; verify the service-catalog "Returns a registered service" (`repository` is `null`) and "Shows a provisioned repository" scenarios for both `GET /api/v1/services/{name}` and the list, update the existing catalog tests' expected JSON, and check that `/v3/api-docs` documents the field
+- [x] 1.1 Add migration `V2__add_service_repository.sql` (three nullable `repository_*` columns with an all-or-none check constraint), the public `SourceRepository` record, the matching `ServiceEntity` fields, a nullable `repository` on `RegisteredService`, and the public `ServiceCatalog.recordRepository(name, url, template)`; verify with integration tests that recording returns the repository and sets `updatedAt` to its `createdAt`, that `lookUp` returns it, that an unknown service throws `ServiceNotFoundException`, that recording twice throws `IllegalStateException`, and that the database rejects a row with only some repository columns set; add the columns to docs/architecture.md
+- [x] 1.2 Add `repository` to `ServiceResponse`; verify the service-catalog "Returns a registered service" (`repository` is `null`) and "Shows a provisioned repository" scenarios for both `GET /api/v1/services/{name}` and the list, update the existing catalog tests' expected JSON, and check that `/v3/api-docs` documents the field
 
 ## 2. Template validation
 

@@ -1,5 +1,6 @@
 package io.github.spollito.devplane.catalog;
 
+import java.net.URI;
 import java.time.Instant;
 
 import jakarta.persistence.Column;
@@ -41,6 +42,12 @@ class ServiceEntity {
 	@Column(nullable = false)
 	private Instant updatedAt;
 
+	private String repositoryUrl;
+
+	private String repositoryTemplate;
+
+	private Instant repositoryCreatedAt;
+
 	protected ServiceEntity() {
 		// for JPA
 	}
@@ -58,6 +65,20 @@ class ServiceEntity {
 		this.owner = owner;
 		this.description = description;
 		this.lifecycle = lifecycle;
+		this.updatedAt = now;
+	}
+
+	/**
+	 * Records the service's repository, which also counts as an update.
+	 * @throws IllegalStateException if the service already has a repository
+	 */
+	void recordRepository(URI url, String template, Instant now) {
+		if (this.repositoryUrl != null) {
+			throw new IllegalStateException("Service '" + this.name + "' already has a repository");
+		}
+		this.repositoryUrl = url.toString();
+		this.repositoryTemplate = template;
+		this.repositoryCreatedAt = now;
 		this.updatedAt = now;
 	}
 
@@ -83,6 +104,12 @@ class ServiceEntity {
 
 	Instant getUpdatedAt() {
 		return updatedAt;
+	}
+
+	/** The service's repository, or {@code null} if none was provisioned. */
+	SourceRepository getRepository() {
+		return (repositoryUrl != null)
+				? new SourceRepository(URI.create(repositoryUrl), repositoryTemplate, repositoryCreatedAt) : null;
 	}
 
 }
