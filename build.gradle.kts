@@ -51,7 +51,7 @@ tasks.test {
 	}
 }
 
-val templateTest by tasks.registering(Test::class) {
+val templateTest = tasks.register<Test>("templateTest") {
 	description = "Generates a project from each service template and builds it."
 	group = LifecycleBasePlugin.VERIFICATION_GROUP
 	testClassesDirs = sourceSets.test.get().output.classesDirs
