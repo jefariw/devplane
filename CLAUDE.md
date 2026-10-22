@@ -19,6 +19,16 @@ Docker must be running for tests and `bootRun`.
 - `./gradlew bootRun`: start the app on http://localhost:8080. Spring Boot starts
   PostgreSQL from `compose.yaml`.
 
+## Web UI
+
+- Web UI pages and the public site follow `docs/ui-guidelines.md`: its design
+  values, components, writing style, accessibility minimums, and Never list.
+  Add a new color, size, or component to the guidelines before using it.
+- `docs/mockups/` holds the approved static mockups. Use them as the visual
+  reference.
+- A change to a page is done only after the screenshot check in the guidelines:
+  Playwright screenshots at 1280px and 390px, checked against the guidelines.
+
 ## Spec-driven development with OpenSpec
 
 Behavior is agreed in specs before code is written.
