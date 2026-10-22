@@ -38,6 +38,12 @@ A request flows from the controller, which validates its body, to
 Every error becomes an RFC 9457 problem details response in
 `api/ApiExceptionHandler`.
 
+Other features read the catalog through `ServiceCatalog.lookUp(name)`, which
+returns a read-only `RegisteredService` (name, owner, and description) and throws
+a 404 error for an unknown name. Everything else in the `catalog` package,
+including the JPA entity, stays package-private, so only the catalog changes
+services.
+
 The API is described at `/v3/api-docs` (browsable at `/swagger-ui.html`), and
 `/actuator/health` reports whether the application can reach its database.
 
