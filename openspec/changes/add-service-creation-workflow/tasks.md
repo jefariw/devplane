@@ -6,8 +6,8 @@
 
 ## 2. Template list
 
-- [ ] 2.1 Add the `ServiceTemplate` record and the `ServiceTemplates` component, listing `java-rest-api` with its description; verify with a unit test that generates every listed template into a temporary directory
-- [ ] 2.2 Add `TemplateController` with `GET /api/v1/templates`; verify the "Lists the java-rest-api template" scenario with an integration test, check that `/v3/api-docs` documents the endpoint, and add the endpoint to docs/architecture.md
+- [x] 2.1 Add the `ServiceTemplate` record and the `ServiceTemplates` component, listing `java-rest-api` with its description; verify with a unit test that generates every listed template into a temporary directory
+- [x] 2.2 Add `TemplateController` with `GET /api/v1/templates`; verify the "Lists the java-rest-api template" scenario with an integration test, check that `/v3/api-docs` documents the endpoint, and add the endpoint to docs/architecture.md
 
 ## 3. Project archive
 
