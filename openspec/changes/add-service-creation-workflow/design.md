@@ -55,14 +55,16 @@ download it, which suits the web UI.
 The response is a zip in the Spring Initializr style: `orders-api.zip` holding an
 `orders-api/` folder. A new `ProjectArchiver` builds it:
 
-1. Opens a zip file system (the JDK's `jdk.zipfs` module) on a new temporary file,
-   with POSIX file attributes enabled and default permissions `rw-r--r--`.
+1. Opens a zip file system (the JDK's `jdk.zipfs` module) on a new archive file in
+   a `devplane-` temporary directory, with POSIX file attributes enabled and
+   default permissions `rw-r--r--`. The directory also holds any temporary files
+   the zip file system writes while it closes.
 2. Calls the existing generator with the archive's `/orders-api` path as the
    target directory. The generator's `Files` calls work unchanged on that file
    system, and its step that makes `gradlew` executable is stored as the entry's
    Unix mode (`rwxr-xr-x`).
 3. Closes the file system, reads the archive into a byte array, and deletes the
-   temporary files in a `finally` block.
+   temporary directory in a `finally` block.
 
 Alternatives:
 
@@ -149,8 +151,8 @@ scenario covers that case, so a test catches it if Spring's behavior changes.
 - [Two downloads of the same service can differ if its details, or DevPlane's
   Spring Boot version, changed in between] → Intended: the project reflects the
   catalog as it is now ("Uses the service's current details").
-- [A crash mid-request can leave a temporary file behind] → The files are small,
-  live in the OS temporary directory, and have a `devplane-` prefix.
+- [A crash mid-request can leave a temporary directory behind] → It holds one
+  small archive, lives in the OS temporary directory, and has a `devplane-` prefix.
 - [The template list and the template folders can drift apart] → A test generates
   every listed template.
 - [An unknown service with an unknown template returns 400, not 404, because the
