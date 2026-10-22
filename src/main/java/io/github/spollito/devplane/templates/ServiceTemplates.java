@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
  * template has a description.
  */
 @Component
-class ServiceTemplates {
+public class ServiceTemplates {
 
 	/** The golden path, used when a client doesn't choose a template. */
-	static final String DEFAULT = "java-rest-api";
+	public static final String DEFAULT = "java-rest-api";
 
 	private static final List<ServiceTemplate> TEMPLATES = List
 		.of(new ServiceTemplate("java-rest-api", "Spring Boot (Java 21) REST API with PostgreSQL"));

@@ -7,7 +7,7 @@
 
 ## 2. Template validation
 
-- [ ] 2.1 Make `ServiceTemplates` and its `DEFAULT` constant public, and add the `@ListedTemplate` constraint and its validator to the `templates` package; verify with tests that `java-rest-api` and `null` are valid, and that `cobol-batch` and the test-only `test-template` are invalid
+- [x] 2.1 Make `ServiceTemplates` and its `DEFAULT` constant public, and add the `@ListedTemplate` constraint and its validator to the `templates` package; verify with tests that `java-rest-api` and `null` are valid, and that `cobol-batch` and the test-only `test-template` are invalid
 
 ## 3. GitHub client
 
