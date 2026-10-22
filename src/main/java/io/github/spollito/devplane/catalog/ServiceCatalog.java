@@ -1,5 +1,6 @@
 package io.github.spollito.devplane.catalog;
 
+import java.net.URI;
 import java.sql.SQLException;
 import java.time.Clock;
 import java.time.Instant;
@@ -71,6 +72,19 @@ public class ServiceCatalog {
 	@Transactional(readOnly = true)
 	public RegisteredService lookUp(String name) {
 		return RegisteredService.from(get(name));
+	}
+
+	/**
+	 * Records the GitHub repository provisioned for a service, for other DevPlane
+	 * features. The repository's creation time is also the service's new
+	 * {@code updatedAt}.
+	 * @throws ServiceNotFoundException if no service has this name
+	 * @throws IllegalStateException if the service already has a repository
+	 */
+	public SourceRepository recordRepository(String name, URI url, String template) {
+		ServiceEntity service = get(name);
+		service.recordRepository(url, template, now());
+		return service.getRepository();
 	}
 
 	/** Lists services one page at a time, optionally only those with the given owner. */

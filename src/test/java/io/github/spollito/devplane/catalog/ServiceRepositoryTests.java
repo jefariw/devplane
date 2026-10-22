@@ -36,6 +36,7 @@ class ServiceRepositoryTests {
 		assertThat(reloaded.getLifecycle()).isEqualTo(Lifecycle.PRODUCTION);
 		assertThat(reloaded.getCreatedAt()).isEqualTo(NOW);
 		assertThat(reloaded.getUpdatedAt()).isEqualTo(NOW);
+		assertThat(reloaded.getRepository()).isNull();
 	}
 
 	@Test

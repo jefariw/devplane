@@ -34,4 +34,17 @@ class CatalogDocumentationTests {
 			.containsKeys("RegisterServiceRequest", "UpdateServiceRequest", "ServiceResponse");
 	}
 
+	@Test
+	void documentsTheServicesRepository() {
+		MvcTestResult result = mvc.get().uri("/v3/api-docs").exchange();
+
+		assertThat(result).bodyJson()
+			.extractingPath("$.components.schemas.ServiceResponse.properties.repository.$ref")
+			.isEqualTo("#/components/schemas/SourceRepository");
+		assertThat(result).bodyJson()
+			.extractingPath("$.components.schemas.SourceRepository.properties")
+			.asMap()
+			.containsOnlyKeys("url", "template", "createdAt");
+	}
+
 }

@@ -28,12 +28,18 @@ such as templates and deployments become sibling packages:
 ```
 io.github.spollito.devplane
 ├── api/        behavior shared by every endpoint: problem details error responses
-├── catalog/    the service catalog: REST controller, request and response records,
-│               ServiceCatalog (business rules), ServiceEntity and its repository
-└── templates/  service templates: ProjectGenerator, which generates new service
-                projects, ProjectArchiver, which zips them, and the endpoints that
-                list templates and download a service's project
+├── catalog/       the service catalog: REST controller, request and response
+│                  records, ServiceCatalog (business rules), ServiceEntity and its
+│                  repository
+├── provisioning/  repository provisioning: the endpoint that gives a service its
+│                  GitHub repository, GitHubClient, and ProjectPusher (Git push)
+└── templates/     service templates: ProjectGenerator, which generates new service
+                   projects, ProjectArchiver, which zips them, and the endpoints
+                   that list templates and download a service's project
 ```
+
+Dependencies between feature packages point one way: `templates` uses `catalog`,
+and `provisioning` uses both. `catalog` depends on neither.
 
 A request flows from the controller, which validates its body, to
 `ServiceCatalog`, then through a Spring Data JPA repository to PostgreSQL.
@@ -41,8 +47,10 @@ Every error becomes an RFC 9457 problem details response in
 `api/ApiExceptionHandler`.
 
 Other features read the catalog through `ServiceCatalog.lookUp(name)`, which
-returns a read-only `RegisteredService` (name, owner, and description) and throws
-a 404 error for an unknown name. Everything else in the `catalog` package,
+returns a read-only `RegisteredService` (name, owner, description, and repository)
+and throws a 404 error for an unknown name. The one change they can make is
+`ServiceCatalog.recordRepository(name, url, template)`, which stores a service's
+GitHub repository once it exists. Everything else in the `catalog` package,
 including the JPA entity, stays package-private, so only the catalog changes
 services.
 
@@ -64,6 +72,7 @@ The `services` table holds the catalog:
 | `description` | `varchar(300)` | Optional |
 | `lifecycle` | `varchar(20)` | `EXPERIMENTAL`, `PRODUCTION`, or `DEPRECATED` (check constraint) |
 | `created_at`, `updated_at` | `timestamptz` | Set by the application, at microsecond precision |
+| `repository_url`, `repository_template`, `repository_created_at` | `varchar(255)`, `varchar(63)`, `timestamptz` | The service's GitHub repository and the template it was generated from; all three are null until a repository is provisioned, and a check constraint keeps them set together |
 
 ### Service Templates
 
@@ -103,3 +112,36 @@ with `ServiceCatalog.lookUp`, and returns the archive as `<name>.zip`. Nothing i
 stored: every request generates the project from the service's current details.
 The endpoint lives in the `templates` package even though its path is under the
 service, so that `templates` depends on `catalog` and never the reverse.
+
+### Repository Provisioning
+
+`POST /api/v1/services/{name}/repository` gives a registered service a GitHub
+repository holding its generated project. `RepositoryProvisioner` runs the steps
+in order:
+
+1. Looks the service up with `ServiceCatalog.lookUp` (404 if it isn't registered,
+   409 if it already has a repository), then checks that a GitHub token is
+   configured (503 if not).
+2. Generates the project into a `devplane-` temporary directory, before anything
+   happens on GitHub, so a broken template never leaves an empty repository.
+3. `GitHubClient` creates the repository with `POST /user/repos` on GitHub's REST
+   API, in the account that owns the token. A name the account already uses is a
+   409; any other GitHub failure is a 502.
+4. `ProjectPusher` uses JGit to commit the project as the single first commit on
+   `main`, as the token owner's GitHub no-reply address, with `gradlew` staged as
+   executable, and pushes it. It shuts out the developer's own Git configuration
+   (line-ending conversion, commit signing, and hooks) so it can't change the
+   commit. A failed push is a 502 whose detail names the empty repository left
+   on GitHub.
+5. `ServiceCatalog.recordRepository` stores the repository's URL and template, and
+   the temporary directory is deleted.
+
+The provisioner isn't transactional: each catalog call has its own transaction,
+so none stays open while DevPlane waits for GitHub.
+
+The token comes from the `DEVPLANE_GITHUB_TOKEN` environment variable (bound to
+`devplane.github.token`), and `devplane.github.api-url` defaults to
+`https://api.github.com`. DevPlane starts without a token, and the token never
+appears in logs, responses, or the pushed repository. Tests point `api-url` at
+`FakeGitHub`, a small HTTP server in the test JVM that creates bare Git
+repositories, so neither CI nor contributors need a token.

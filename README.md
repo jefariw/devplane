@@ -42,7 +42,7 @@ Items marked *stretch* are optional extras once the rest of their phase works.
 - [x] Platform API: versioned REST API with OpenAPI docs
 - [x] Golden-path service template: Java REST API with PostgreSQL
 - [x] Service creation workflow: generate a new service from the template
-- [ ] Repository provisioning: push the generated service to a new GitHub repository
+- [x] Repository provisioning: push the generated service to a new GitHub repository
 - [ ] Web UI for browsing the catalog and creating services
 
 ### Phase 2 — Deployment
@@ -122,6 +122,36 @@ cd orders-api
 The project comes from the `java-rest-api` template unless you add
 `?template=<name>` to the download. Each download generates the project from the
 service's current details, and DevPlane keeps no copy of it.
+
+### Push it to GitHub
+
+DevPlane can also create a GitHub repository for the service and push the
+generated project to it. It needs a fine-grained personal access token:
+
+1. On GitHub, open **Settings → Developer settings → Personal access tokens →
+   Fine-grained tokens** and generate a new token.
+2. Give it a short expiration, such as 30 days.
+3. Under **Repository access**, choose **All repositories**. GitHub requires this
+   for a token that creates repositories.
+4. Under **Repository permissions**, set **Administration** and **Contents** to
+   **Read and write**.
+
+Then start DevPlane with the token, and provision the service's repository:
+
+```sh
+export DEVPLANE_GITHUB_TOKEN=github_pat_...
+./gradlew bootRun
+
+# In another terminal: create a private repository from the java-rest-api template
+curl -X POST http://localhost:8080/api/v1/services/orders-api/repository
+```
+
+The response holds the repository's `url`, and `GET /api/v1/services/orders-api`
+shows it too. Send a JSON body to choose the template or make the repository
+public, for example `{"template": "java-rest-api", "visibility": "public"}`.
+Each service gets one repository, named after the service, in the account that
+owns the token. DevPlane never deletes repositories, including when a service is
+unregistered.
 
 ## Development Workflow
 

@@ -58,7 +58,7 @@ public class ProjectGenerator {
 	/** New services start on the Spring Boot version DevPlane itself runs. */
 	private final String springBootVersion;
 
-	ProjectGenerator(@Value("${devplane.templates.base-package}") String basePackage) {
+	public ProjectGenerator(@Value("${devplane.templates.base-package}") String basePackage) {
 		if (!SourceVersion.isName(basePackage)) {
 			throw new IllegalArgumentException("Not a valid Java package name: " + basePackage);
 		}

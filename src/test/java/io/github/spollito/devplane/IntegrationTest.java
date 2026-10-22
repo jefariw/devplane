@@ -10,8 +10,8 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 
 /**
- * The full application with MockMvc, a Testcontainers PostgreSQL, and a
- * {@link MutableClock} in place of the system clock.
+ * The full application with MockMvc, a Testcontainers PostgreSQL, a
+ * {@link MutableClock} in place of the system clock, and a fake GitHub.
  * <p>
  * Every integration test uses exactly this configuration, so they all share one
  * cached Spring context and one database container.
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Import({ TestcontainersConfiguration.class, TestClockConfiguration.class })
+@Import({ TestcontainersConfiguration.class, TestClockConfiguration.class, FakeGitHubConfiguration.class })
 public @interface IntegrationTest {
 
 }

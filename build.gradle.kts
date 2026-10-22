@@ -26,6 +26,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("org.flywaydb:flyway-database-postgresql")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.1.1")
+	implementation("org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-actuator-test")
@@ -51,7 +52,7 @@ tasks.test {
 	}
 }
 
-val templateTest by tasks.registering(Test::class) {
+val templateTest = tasks.register<Test>("templateTest") {
 	description = "Generates a project from each service template and builds it."
 	group = LifecycleBasePlugin.VERIFICATION_GROUP
 	testClassesDirs = sourceSets.test.get().output.classesDirs
