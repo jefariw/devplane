@@ -100,6 +100,21 @@ http://localhost:8080/swagger-ui.html.
 
 ## Creating a Service
 
+### Using the web UI
+
+After `./gradlew bootRun`, open http://localhost:8080 in a browser:
+
+1. Press **Register service**, and enter the service's name, owner, and lifecycle
+   stage.
+2. On the service's page, press **Download project** for a zip of its generated
+   project.
+3. With a GitHub token set (see [Push it to GitHub](#push-it-to-github)), choose
+   private or public and press **Create repository**.
+
+Every page works with JavaScript turned off.
+
+### Using the API
+
 With DevPlane running, register a service in the catalog, then download the
 project DevPlane generates for it:
 

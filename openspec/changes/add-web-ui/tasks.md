@@ -2,7 +2,7 @@
 
 ## 1. Groundwork
 
-- [ ] 1.1 Add the dependencies from the design:
+- [x] 1.1 Add the dependencies from the design:
   - `spring-boot-starter-thymeleaf`
   - `org.webjars.npm:htmx.org:2.0.11` and `org.webjars:webjars-locator-lite`
   - for tests: `spring-boot-starter-thymeleaf-test` and `org.jsoup:jsoup:1.23.2`
@@ -17,7 +17,7 @@
   Verify with an integration test that `/css/devplane.css`, each font, and
   `/webjars/htmx.org/dist/htmx.min.js` return 200, and that `./gradlew build`
   passes.
-- [ ] 1.2 Add the `web` package:
+- [x] 1.2 Add the `web` package:
   - the `layout.html` fragments: head with title, "Skip to content" link, top bar
     with "Services" and "API docs", and the notice area
   - `fragments/icons.html` (Lucide paths, with the ISC attribution) and
@@ -34,7 +34,7 @@
 
 ## 2. Catalog and provisioning operations for pages
 
-- [ ] 2.1 Rework the catalog's public operations:
+- [x] 2.1 Rework the catalog's public operations:
   - `ServiceCatalog.register`, `list`, and `unregister` become public and return
     `RegisteredService`, which gains `lifecycle`, `createdAt`, and `updatedAt`.
     `update` returns it too.
@@ -47,7 +47,7 @@
   with only `LookUpServiceTests`' expected record updated. Change
   docs/architecture.md's rule to "other features change services only through
   `ServiceCatalog`".
-- [ ] 2.2 Give `description`'s `@Size` the message "must be at most 300
+- [x] 2.2 Give `description`'s `@Size` the message "must be at most 300
   characters", from a `CatalogConstraints` constant. Make
   `RepositoryProvisioner.provision` and `ProvisionRepositoryRequest` (with
   `templateOrDefault` and `isPrivate`) public. Verify that the overlong-description
@@ -56,7 +56,7 @@
 
 ## 3. Errors and cross-site requests
 
-- [ ] 3.1 Set up error handling:
+- [x] 3.1 Set up error handling:
   - In `ApiExceptionHandler`, paths outside `/api/` call `response.sendError`
     and return no body, in both `handleExceptionInternal` and
     `handleUnexpected`.
@@ -74,7 +74,7 @@
   - `ApiExceptionHandlerTests` still passes.
 
   Describe the three error paths in docs/architecture.md.
-- [ ] 3.2 Add `api.CrossSiteRequestInterceptor` (Fetch Metadata first, then
+- [x] 3.2 Add `api.CrossSiteRequestInterceptor` (Fetch Metadata first, then
   `WebUtils.isSameOrigin`), the `WebMvcConfigurer` that registers it, and
   `CrossSiteRequestException` (403). Verify the platform-api scenarios:
   - "Rejects a request from another site", checking that `FakeGitHub`'s request
@@ -87,7 +87,7 @@
 
 ## 4. Catalog page
 
-- [ ] 4.1 Build `GET /services`:
+- [x] 4.1 Build `GET /services`:
   - the services table, from a `ServiceRow` view record, with the repository as
     `owner/name` or "None", "No description", and the relative update time with
     the exact time in its `title`
@@ -99,7 +99,7 @@
   Verify the scenarios "Lists services alphabetically", "Shows each service's
   repository", "Shows a missing description", "Shows the second page", "Hides
   paging when everything fits", and "Corrects page numbers that don't exist".
-- [ ] 4.2 Add filtering and the empty catalog:
+- [x] 4.2 Add filtering and the empty catalog:
   - the "Owner" filter form, owner links, the no-match state, a blank owner
     meaning every service, and paging links that keep the owner
   - the filter's htmx attributes: `hx-get` on input after 300ms or on submit,
@@ -119,7 +119,7 @@
 
 ## 5. Service page
 
-- [ ] 5.1 Build `GET /services/{name}`:
+- [x] 5.1 Build `GET /services/{name}`:
   - the summary: `h1`, description or "No description", owner link, lifecycle,
     and the registered and updated times
   - the path steps:
@@ -134,7 +134,7 @@
 
   Verify the scenarios "Shows a service", "Unknown service" (view a service's
   page), "Links to the download", and "Shows a provisioned repository".
-- [ ] 5.2 Add `RepositoryPages` for `POST /services/{name}/repository`:
+- [x] 5.2 Add `RepositoryPages` for `POST /services/{name}/repository`:
   - post, then redirect, carrying flash attributes: the notice, or the error's
     detail and status and the chosen visibility
   - the error notice inside the repository step, with the README token link for
@@ -159,7 +159,7 @@
 
 ## 6. Register a service
 
-- [ ] 6.1 Build `GET /register` and `POST /register`:
+- [x] 6.1 Build `GET /register` and `POST /register`:
   - binding to `RegisterServiceRequest`, with `StringTrimmerEditor(true)`
   - the field-message mapping ("Enter …", or the label followed by the message),
     unit tested
@@ -179,7 +179,7 @@
 
 ## 7. Unregister a service
 
-- [ ] 7.1 Build the `GET /services/{name}/unregister` confirmation page. Build
+- [x] 7.1 Build the `GET /services/{name}/unregister` confirmation page. Build
   `POST /services/{name}/unregister`, which responds 303 to `/services` with the
   notice "Unregistered `{name}`." Verify the scenarios "Asks before
   unregistering", "Unregisters the service", "Unknown service" (unregister),
@@ -190,7 +190,7 @@
 
 ## 8. Integration checks
 
-- [ ] 8.1 Add tests for the scenarios "Every action is a link or a form" and
+- [x] 8.1 Add tests for the scenarios "Every action is a link or a form" and
   "Structure of every page". They cover `/services`, `/services/orders-api`,
   `/register`, and `/services/orders-api/unregister`. Verify they pass.
 - [ ] 8.2 Add a "Using the web UI" part to README.md's "Creating a Service"
