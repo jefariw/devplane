@@ -60,6 +60,7 @@ class ServicePageTests {
 		assertThat(page.select(".summary").text()).contains("Experimental", "Registered Oct 14, 2026, 09:12",
 				"Updated Oct 14, 2026, 09:12");
 		assertThat(page.select(".path .step h3").eachText()).containsExactly("Catalog entry", "Project", "Repository");
+		assertThat(page.select("[role=alert]")).isEmpty();
 	}
 
 	@Test
@@ -100,6 +101,7 @@ class ServicePageTests {
 		assertThat(link.attr("href")).isEqualTo("https://github.com/octo-dev/orders-api");
 		assertThat(repository.select(".step__status").text()).isEqualTo("Created Oct 22, 2026, 15:02 from java-rest-api");
 		assertThat(page.select("button:contains(Create repository)")).isEmpty();
+		assertThat(page.select("[role=alert]")).isEmpty();
 	}
 
 	private static Element step(Document page, String heading) {

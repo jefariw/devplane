@@ -109,7 +109,7 @@
 
   Verify the scenarios "Lists one owner's services", "Owner names link to their
   list", "Owner with no services", "Blank owner", and "Empty catalog".
-- [ ] 4.3 Run the screenshot check from docs/ui-guidelines.md on the catalog, at
+- [x] 4.3 Run the screenshot check from docs/ui-guidelines.md on the catalog, at
   1280px and 390px:
   - several pages of services in all three lifecycle stages
   - a filtered list, the no-match state, and the empty catalog
@@ -148,7 +148,7 @@
   visibility", "The service already has a repository", and "Unknown service"
   (explain why a repository wasn't created). Verify "No GitHub token" in a class
   that uses the no-token context.
-- [ ] 5.3 Run the screenshot check on the service page, at 1280px and 390px:
+- [x] 5.3 Run the screenshot check on the service page, at 1280px and 390px:
   - a service with no repository, and one with a repository
   - while a repository is being created: the "Waits for GitHub" scenario, with a
     real token or network throttling
@@ -173,7 +173,7 @@
   "Registers a service", "Offers experimental by default", "Reports every invalid
   field", "Rejects an overlong description", "Name already registered", and
   "Rejects a cross-site fetch".
-- [ ] 6.2 Run the screenshot check on the register form, at 1280px and 390px:
+- [x] 6.2 Run the screenshot check on the register form, at 1280px and 390px:
   empty, with several errors with the summary focused, with a duplicate name, and
   the service page's "Registered" notice. Fix what the check finds.
 
@@ -184,7 +184,7 @@
   notice "Unregistered `{name}`." Verify the scenarios "Asks before
   unregistering", "Unregisters the service", "Unknown service" (unregister),
   "Rejects a form from another site", and "Accepts DevPlane's own forms".
-- [ ] 7.2 Run the screenshot check at 1280px and 390px on the confirmation page,
+- [x] 7.2 Run the screenshot check at 1280px and 390px on the confirmation page,
   for a service with and without a repository, and on the catalog's
   "Unregistered" notice. Fix what the check finds.
 
@@ -193,7 +193,7 @@
 - [x] 8.1 Add tests for the scenarios "Every action is a link or a form" and
   "Structure of every page". They cover `/services`, `/services/orders-api`,
   `/register`, and `/services/orders-api/unregister`. Verify they pass.
-- [ ] 8.2 Add a "Using the web UI" part to README.md's "Creating a Service"
+- [x] 8.2 Add a "Using the web UI" part to README.md's "Creating a Service"
   section: open http://localhost:8080 after `./gradlew bootRun`, then register a
   service, download its project, and create its repository. The curl examples
   stay. Then follow it in a browser with a real token:
@@ -202,7 +202,7 @@
   - unregister the service, and confirm the repository is kept
   - register and unregister another service with JavaScript turned off
   - delete the test repositories on GitHub
-- [ ] 8.3 Run the full screenshot check from docs/ui-guidelines.md: every page and
+- [x] 8.3 Run the full screenshot check from docs/ui-guidelines.md: every page and
   state from groups 4 to 7 and the error pages, at 1280px and 390px. This covers
   the "Checked in a browser" scenario. Then run `./gradlew build`, confirm CI
   passes, and tick "Web UI for browsing the catalog and creating services" in the

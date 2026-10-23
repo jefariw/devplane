@@ -80,8 +80,9 @@
 								th:text="${service.repository.template}">java-rest-api</span></p>
 					</div>
 					<!--/* A request to create a second repository fails, and says so here. */-->
-					<div th:if="${repositoryError != null}"
-							th:replace="~{fragments/path :: repositoryError(${repositoryError}, ${repositoryErrorStatus})}"></div>
+					<th:block th:if="${repositoryError != null}">
+						<div th:replace="~{fragments/path :: repositoryError(${repositoryError}, ${repositoryErrorStatus})}"></div>
+					</th:block>
 					<a class="repo-link" th:href="${service.repository.url}">
 						<span class="id" th:text="${service.repository.fullName}">octo-dev/orders-api</span>
 						<svg th:replace="~{fragments/icons :: external}"></svg>
@@ -96,8 +97,9 @@
 							first commit.</p>
 					</div>
 
-					<div th:if="${repositoryError != null}"
-							th:replace="~{fragments/path :: repositoryError(${repositoryError}, ${repositoryErrorStatus})}"></div>
+					<th:block th:if="${repositoryError != null}">
+						<div th:replace="~{fragments/path :: repositoryError(${repositoryError}, ${repositoryErrorStatus})}"></div>
+					</th:block>
 
 					<!--/*
 						With JavaScript on, htmx posts the form, follows the redirect, and swaps in
